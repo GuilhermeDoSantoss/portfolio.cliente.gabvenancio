@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Gabriel Venancio</title>
+    <link rel="stylesheet" href="styles.css">
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+   
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader">
+            <div class="loader-ring">
+                <div class="loader-ring-inner"></div>
+            </div>
+            <div class="dumbbell">
+                <i class="fas fa-dumbbell"></i>
+            </div>
+            <div class="loading-text">
+                <span class="letter">P</span>
+                <span class="letter">R</span>
+                <span class="letter">O</span>
+                <span class="letter">F.</span>
+                <span class="letter"> G</span>
+                <span class="letter">A</span>
+                <span class="letter">B</span>
+                <span class="letter">R</span>
+                <span class="letter">I</span>
+                <span class="letter">E</span>
+                <span class="letter">L</span>
+            </div>
+            <div class="loading-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="particles-container">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <div class="nav__brand">
+                <div class="nav__icon-wrapper">
+                    <i class="fas fa-dumbbell nav__icon"></i>
+                </div>
+                <span class="nav__logo">Gabriel Venancio</span>
+            </div>
+            
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="#inicio" class="nav__link active-link">
+                            <span class="nav__link-text">Início</span>
+                            <span class="nav__link-bg"></span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#servicos" class="nav__link">
+                            <span class="nav__link-text">Serviços</span>
+                            <span class="nav__link-bg"></span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#sobre" class="nav__link">
+                            <span class="nav__link-text">Sobre</span>
+                            <span class="nav__link-bg"></span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#depoimentos" class="nav__link">
+                            <span class="nav__link-text">Depoimentos</span>
+                            <span class="nav__link-bg"></span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#planos" class="nav__link">
+                            <span class="nav__link-text">Planos</span>
+                            <span class="nav__link-bg"></span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#contato" class="nav__link">
+                            <span class="nav__link-text">Contato</span>
+                            <span class="nav__link-bg"></span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="nav__close" id="nav-close">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+
+            <div class="nav__actions">
+                <button class="btn btn--primary btn--glow">
+                    <span class="btn__text">Agendar Consulta</span>
+                    <span class="btn__icon"><i class="fas fa-calendar"></i></span>
+                </button>
+                <div class="nav__toggle" id="nav-toggle">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero section" id="inicio">
+            <div class="hero__bg-animation">
+                <div class="floating-shape shape-1"></div>
+                <div class="floating-shape shape-2"></div>
+                <div class="floating-shape shape-3"></div>
+            </div>
+            
+            <div class="hero__container container grid">
+                <div class="hero__content">
+                    <div class="hero__badge animate-slide-up" data-delay="0.1">
+                        <i class="fas fa-certificate"></i>
+                        <span>Personal Trainer Certificado</span>
+                        <div class="badge__glow"></div>
+                    </div>
+                    <h1 class="hero__title animate-slide-up" data-delay="0.2">
+                        Transforme seu corpo e sua vida com
+                        <span class="text-gradient typing-effect">treino personalizado</span>
+                    </h1>
+                    <p class="hero__description animate-slide-up" data-delay="0.3">
+                        Mais de 3 anos ajudando pessoas a alcançarem seus objetivos fitness. 
+                        Treinos personalizados, acompanhamento nutricional e resultados garantidos.
+                    </p>
+                    <div class="hero__buttons animate-slide-up" data-delay="0.4">
+                        <a href="#contato" class="btn btn--primary btn--large btn--magnetic">
+                            <span class="btn__text">
+                                <i class="fab fa-whatsapp"></i>
+                                Começar Agora
+                            </span>
+                            <span class="btn__bg"></span>
+                        </a>
+                        <a href="#planos" class="btn btn--outline btn--large btn--magnetic">
+                            <span class="btn__text">Ver Planos</span>
+                            <span class="btn__bg"></span>
+                        </a>
+                    </div>
+                    <div class="hero__features animate-slide-up" data-delay="0.5">
+                        <div class="feature">
+                            <div class="feature__icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <span>Primeira consulta grátis</span>
+                        </div>
+                        <div class="feature">
+                            <div class="feature__icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <span>Resultados em 30 dias</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero__image animate-slide-right" data-delay="0.3">
+                    <div class="hero__img-wrapper">
+                        <div class="img__overlay"></div>
+                        <div class="floating-card floating-card--1">
+                            <div class="card__icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div class="card__content">
+                                <span class="card__number">500+</span>
+                                <span class="card__text">Calorias</span>
+                            </div>
+                        </div>
+                        <div class="floating-card floating-card--2">
+                            <div class="card__icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="card__content">
+                                <span class="card__number">98%</span>
+                                <span class="card__text">Sucesso</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero__scroll">
+                <a href="#servicos" class="scroll-down">
+                    <span class="scroll-text">Role para baixo</span>
+                    <div class="scroll-icon">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services section" id="servicos">
+            <div class="container">
+                <div class="section__header animate-on-scroll">
+                    <div class="section__badge">
+                        <i class="fas fa-star"></i>
+                        <span>Nossos Serviços</span>
+                    </div>
+                    <h2 class="section__title">Serviços Especializados</h2>
+                    <p class="section__subtitle">
+                        Oferecemos uma gama completa de serviços para atender suas necessidades fitness
+                    </p>
+                </div>
+
+                <div class="services__container grid animate-on-scroll">
+                    <div class="service__card" data-tilt>
+                        <div class="service__card-inner">
+                            <div class="service__icon">
+                                <i class="fas fa-bullseye"></i>
+                                <div class="icon__bg"></div>
+                            </div>
+                            <h3 class="service__title">Personal Training</h3>
+                            <p class="service__description">
+                                Treinos 100% personalizados baseados em seus objetivos e limitações
+                            </p>
+                            <ul class="service__features">
+                                <li><i class="fas fa-check"></i> Avaliação física completa</li>
+                                <li><i class="fas fa-check"></i> Treino personalizado</li>
+                                <li><i class="fas fa-check"></i> Acompanhamento diário</li>
+                            </ul>
+                            <div class="service__glow"></div>
+                        </div>
+                    </div>
+
+                    <div class="service__card" data-tilt>
+                        <div class="service__card-inner">
+                            <div class="service__icon">
+                                <i class="fas fa-users"></i>
+                                <div class="icon__bg"></div>
+                            </div>
+                            <h3 class="service__title">Treino em Grupo</h3>
+                            <p class="service__description">
+                                Sessões em pequenos grupos para maior motivação e economia
+                            </p>
+                            <ul class="service__features">
+                                <li><i class="fas fa-check"></i> Máximo 3 pessoas</li>
+                                <li><i class="fas fa-check"></i> Preço mais acessível</li>
+                                <li><i class="fas fa-check"></i> Motivação em grupo</li>
+                            </ul>
+                            <div class="service__glow"></div>
+                        </div>
+                    </div>
+
+                    <div class="service__card" data-tilt>
+                        <div class="service__card-inner">
+                            <div class="service__icon">
+                                <i class="fas fa-laptop"></i>
+                                <div class="icon__bg"></div>
+                            </div>
+                            <h3 class="service__title">Consultoria Online</h3>
+                            <p class="service__description">
+                                Acompanhamento à distância com treinos e orientações personalizadas
+                            </p>
+                            <ul class="service__features">
+                                <li><i class="fas fa-check"></i> Treinos via whatsapp</li>
+                                <li><i class="fas fa-check"></i> Suporte diário</li>
+                                <li><i class="fas fa-check"></i> Flexibilidade total</li>
+                            </ul>
+                            <div class="service__glow"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about section" id="sobre">
+            <div class="container">
+                <div class="about__container grid">
+                    <div class="about__image animate-slide-left">
+                        <div class="about__img-wrapper">
+                            
+                            <div class="about__img-overlay"></div>
+                        </div>
+                        <div class="about__experience">
+                            <div class="experience__content">
+                                <span class="experience__number counter" data-target="3">0</span>
+                                <span class="experience__text">Anos de<br>Experiência</span>
+                            </div>
+                            <div class="experience__glow"></div>
+                        </div>
+                    </div>
+                    <div class="about__content animate-slide-right">
+                        <div class="about__badge">
+                            <i class="fas fa-user"></i>
+                            <span>Sobre Mim</span>
+                        </div>
+                        <h2 class="about__title">Prof. Gabriel Venancio</h2>
+                        <p class="about__subtitle">CREF 066381 • Especialista em Treinamento Funcional</p>
+                        <p class="about__description">
+                           Sou profissional de Educação Física, formado em 2023 na Unissuam, com especialização em Biomecânica e pós-graduação em Nutrição Esportiva. Minha missão é transformar vidas por meio do movimento, da ciência e da disciplina.
+                            Atuo com foco em performance, reabilitação e qualidade de vida, unindo conhecimento técnico ao que aprendo na prática como atleta de fisiculturismo. Acredito que resultados consistentes vêm da combinação entre treino inteligente, alimentação estratégica e acompanhamento individualizado.
+                            Minha jornada no esporte me ensinou que cada corpo tem seu tempo, e cada objetivo exige comprometimento — seja ele estético, funcional ou competitivo. Estou aqui para orientar, motivar e guiar quem busca evolução física com saúde e responsabilidade.
+                        </p>
+                        <div class="about__stats grid">
+                            <div class="stat">
+                                <div class="stat__icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <div class="stat__content">
+                                    <span class="stat__number counter" data-target="53">0</span>
+                                    <span class="stat__text">Alunos transformados</span>
+                                </div>
+                                <div class="stat__glow"></div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat__icon">
+                                    <i class="fas fa-bullseye"></i>
+                                </div>
+                                <div class="stat__content">
+                                    <span class="stat__number counter" data-target="98">0</span>
+                                    <span class="stat__text">% de satisfação</span>
+                                </div>
+                                <div class="stat__glow"></div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat__icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="stat__content">
+                                    <span class="stat__number counter" data-target="3">0</span>
+                                    <span class="stat__text">Anos de experiência</span>
+                                </div>
+                                <div class="stat__glow"></div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat__icon">
+                                    <i class="fas fa-certificate"></i>
+                                </div>
+                                <div class="stat__content">
+                                    <span class="stat__number counter" data-target="22">0</span>
+                                    <span class="stat__text">Certificações</span>
+                                </div>
+                                <div class="stat__glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials section" id="depoimentos">
+            <div class="container">
+                <div class="section__header animate-on-scroll">
+                    <div class="section__badge">
+                        <i class="fas fa-quote-left"></i>
+                        <span>Depoimentos</span>
+                    </div>
+                    <h2 class="section__title">O que dizem nossos alunos</h2>
+                    <p class="section__subtitle">
+                        Resultados reais de pessoas reais que transformaram suas vidas
+                    </p>
+                </div>
+
+                <div class="testimonials__container animate-on-scroll">
+                    <div class="testimonial__card" data-tilt>
+                        <div class="testimonial__card-inner">
+                            <div class="testimonial__rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial__text">
+                                "O Gabriel mudou minha vida! Nunca pensei que conseguiria emagrecer tanto e ainda ganhar músculos. 
+                                O acompanhamento é excepcional!"
+                            </p>
+                            <div class="testimonial__author">
+                                <div class="testimonial__img-wrapper">
+                                     <img src="img/daniela.jpg" alt="Daniela Silva" class="testimonial__img">
+                                    <div class="img__border"></div>
+                                </div>
+                                <div class="testimonial__info">
+                                    <h4 class="testimonial__name">Daniela Silva</h4>
+                                    <span class="testimonial__result">Perdeu 4kg em menos de 2 meses, com treinos personalizados e dieta regrada</span>
+                                </div>
+                            </div>
+                            <div class="testimonial__glow"></div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial__card" data-tilt>
+                        <div class="testimonial__card-inner">
+                            <div class="testimonial__rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial__text">
+                                "Treino há 5 meses com o Gabriel e os resultados são incríveis. Finalmente consegui o corpo que sempre quis!"
+                            </p>
+                            <div class="testimonial__author">
+                                <div class="testimonial__img-wrapper">
+                                    <img src="img/marcos.jpg" alt="Marcos" class="testimonial__img">
+                                    <div class="img__border"></div>
+                                </div>
+                                <div class="testimonial__info">
+                                    <h4 class="testimonial__name">Marcos</h4>
+                                    <span class="testimonial__result">Ganhou 8kg de massa muscular</span>
+                                </div>
+                            </div>
+                            <div class="testimonial__glow"></div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial__card" data-tilt>
+                        <div class="testimonial__card-inner">
+                            <div class="testimonial__rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial__text">
+                                "Profissional incrível! Me ajudou a superar minhas limitações e hoje me sinto muito mais disposta e saudável."
+                            </p>
+                            <div class="testimonial__author">
+                                <div class="testimonial__img-wrapper">
+                                    <img src="img/fernando.jpg" alt="Fernando" class="testimonial__img">
+                                    <div class="img__border"></div>
+                                </div>
+                                <div class="testimonial__info">
+                                    <h4 class="testimonial__name">Fernando Santos</h4>
+                                    <span class="testimonial__result">Fernando de 27 anos, melhorou a definição e aumentou sua massa muscular</span>
+                                </div>
+                            </div>
+                            <div class="testimonial__glow"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="pricing section" id="planos">
+            <div class="container">
+                <div class="section__header animate-on-scroll">
+                    <div class="section__badge">
+                        <i class="fas fa-tags"></i>
+                        <span>Nossos Planos</span>
+                    </div>
+                    <h2 class="section__title">Planos</h2>
+                    <p class="section__subtitle">
+                        Escolha o plano ideal para seus objetivos e faça o seu orçamento
+                    </p>
+                </div>
+
+                <div class="pricing__container grid animate-on-scroll">
+                    <div class="pricing__card" data-tilt>
+                        <div class="pricing__card-inner">
+                            <div class="pricing__header">
+                                <h3 class="pricing__title">Consultoria Online</h3>
+                                <p class="pricing__subtitle">Ideal para quem busca flexibilidade</p>
+                                <div class="pricing__price">
+                                    <span class="price__currency">Consulte o valor</span>    
+                                                         
+                                </div>
+                            </div>
+                            <ul class="pricing__features">
+                                <li><i class="fas fa-check"></i> Treino personalizado via Whastapp</li>
+                                <li><i class="fas fa-check"></i> Suporte diário por WhatsApp</li>
+                                <li><i class="fas fa-check"></i> Ajustes semanais no treino</li>
+                                <li><i class="fas fa-check"></i> Orientação nutricional básica</li>
+                            </ul>
+                            <button class="btn btn--outline btn--full btn--magnetic">
+                                <span class="btn__text">Começar Agora</span>
+                                <span class="btn__bg"></span>
+                            </button>
+                            <div class="pricing__glow"></div>
+                        </div>
+                    </div>
+
+                    <div class="pricing__card pricing__card--featured" data-tilt>
+                        <div class="pricing__badge">
+                            <span>Mais Popular</span>
+                            <div class="badge__glow"></div>
+                        </div>
+                        <div class="pricing__card-inner">
+                            <div class="pricing__header">
+                                <h3 class="pricing__title">Personal Training</h3>
+                                <p class="pricing__subtitle">Acompanhamento presencial individual</p>
+                                <div class="pricing__price">
+                                    <span class="price__currency">Consulte o valor</span>
+                                
+                                </div>
+                            </div>
+                            <ul class="pricing__features">
+                                <li><i class="fas fa-check"></i> Treino 100% personalizado</li>
+                                <li><i class="fas fa-check"></i> Acompanhamento presencial</li>
+                                <li><i class="fas fa-check"></i> Avaliação física mensal</li>
+                                <li><i class="fas fa-check"></i> Plano nutricional completo</li>
+                                <li><i class="fas fa-check"></i> Suporte 24/7</li>
+                            </ul>
+                            <button class="btn btn--primary btn--full btn--magnetic">
+                                <span class="btn__text">Agendar Consulta</span>
+                                <span class="btn__bg"></span>
+                            </button>
+                            <div class="pricing__glow"></div>
+                        </div>
+                    </div>
+
+                    <div class="pricing__card" data-tilt>
+                        <div class="pricing__card-inner">
+                            <div class="pricing__header">
+                                <h3 class="pricing__title">Treino em Grupo</h3>
+                                <p class="pricing__subtitle">Máximo 3 pessoas por sessão</p>
+                                <div class="pricing__price">
+                                    <span class="price__currency">Consulte o valor</span>
+                                
+                                </div>
+                            </div>
+                            <ul class="pricing__features">
+                                <li><i class="fas fa-check"></i> Grupos pequenos (máx. 3 pessoas)</li>
+                                <li><i class="fas fa-check"></i> Treino adaptado ao grupo</li>
+                                <li><i class="fas fa-check"></i> Motivação em equipe</li>
+                                <li><i class="fas fa-check"></i> Preço mais acessível</li>
+                            </ul>
+                            <button class="btn btn--outline btn--full btn--magnetic">
+                                <span class="btn__text">Formar Grupo</span>
+                                <span class="btn__bg"></span>
+                            </button>
+                            <div class="pricing__glow"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact section" id="contato">
+            <div class="container">
+                <div class="section__header animate-on-scroll">
+                    <div class="section__badge">
+                        <i class="fas fa-phone"></i>
+                        <span>Fale Conosco</span>
+                    </div>
+                    <h2 class="section__title">Entre em Contato</h2>
+                    <p class="section__subtitle">
+                        Pronto para transformar sua vida? Entre em contato comigo agora mesmo!
+                    </p>
+                </div>
+
+                <div class="contact__container">
+                    <div class="contact__content animate-slide-up">
+                        <div class="contact__card" data-tilt>
+                            <div class="contact__header">
+                                <div class="contact__avatar">
+                                    <div class="avatar__wrapper">
+                                        <img src="img/professor.jpg" alt="Prof. Gabriel" class="contact__img">
+                                        <div class="avatar__border"></div>
+                                        <div class="avatar__glow"></div>
+                                    </div>
+                                </div>
+                                <div class="contact__info-header">
+                                    <h3 class="contact__name">Prof. Gabriel Venancio</h3>
+                                    <p class="contact__title">Personal Trainer Certificado</p>
+                                    <p class="contact__credential">CREF 066381</p>
+                                </div>
+                            </div>
+
+                            <div class="contact__details">
+                                <div class="contact__item" onclick="openWhatsApp()">
+                                    <div class="contact__icon">
+                                        <i class="fab fa-whatsapp"></i>
+                                        <div class="icon__pulse"></div>
+                                    </div>
+                                    <div class="contact__text">
+                                        <span class="contact__label">WhatsApp</span>
+                                        <span class="contact__value">(21) 97691-3725</span>
+                                        <span class="contact__action">Clique para conversar</span>
+                                    </div>
+                                    <div class="contact__arrow">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </div>
+                                </div>
+
+                                <div class="contact__item" onclick="openEmail()">
+                                    <div class="contact__icon">
+                                        <i class="fas fa-envelope"></i>
+                                        <div class="icon__pulse"></div>
+                                    </div>
+                                    <div class="contact__text">
+                                        <span class="contact__label">Email</span>
+                                        <span class="contact__value">gvenancio13pg@gmail.com</span>
+                                        <span class="contact__action">Enviar email</span>
+                                    </div>
+                                    <div class="contact__arrow">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </div>
+                                </div>
+
+                                <div class="contact__item">
+                                    <div class="contact__icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <div class="icon__pulse"></div>
+                                    </div>
+                                    <div class="contact__text">
+                                        <span class="contact__label">Localização</span>
+                                        <span class="contact__value">Rio de Janeiro, RJ</span>
+                                        <span class="contact__action">Atendimento presencial, semi-presencial e online</span>
+                                    </div>
+                                </div>
+
+                                <div class="contact__item">
+                                    <div class="contact__icon">
+                                        <i class="fas fa-clock"></i>
+                                        <div class="icon__pulse"></div>
+                                    </div>
+                                    <div class="contact__text">
+                                        <span class="contact__label">Horário de Atendimento</span>
+                                        <span class="contact__value">Segunda à Sexta: 6h às 22h</span>
+                                        <span class="contact__action">Sábado: 8h às 19h</span>
+                                        <span class="contact__action">Domingo: 8h às 14h</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact__cta">
+                                <button class="btn btn--primary btn--large btn--full btn--magnetic btn--glow" onclick="openWhatsApp()">
+                                    <span class="btn__text">
+                                        <i class="fab fa-whatsapp"></i>
+                                        Conversar no WhatsApp
+                                    </span>
+                                    <span class="btn__bg"></span>
+                                </button>
+                                <p class="contact__cta-text">
+                                    <i class="fas fa-gift"></i>
+                                    Primeira consulta é gratuita!
+                                </p>
+                            </div>
+
+                            <div class="contact__social">
+                                <h4 class="social__title">Siga nas redes sociais</h4>
+                                <div class="social__links">
+                                    <a href="#" class="social__link" target="_blank">
+                                        <div class="social__icon">
+                                            <i class="fab fa-instagram"></i>
+                                        </div>
+                                        <span>venanciogabriel._</span>
+                                    </a>
+                                    <a href="#" class="social__link" target="_blank">
+                                        <div class="social__icon">
+                                            <i class="fab fa-facebook"></i>
+                                        </div>
+                                        <span>Gabriel Venancio</span>
+                                    </a>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="contact__card-glow"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <p class="footer__copy">
+                    © 2025 - Guilherme dos Santos | Engenheiro de Software. Todos os direitos reservados.
+                </p>
+                <div class="footer__links">
+                    <a href="#" class="footer__link">Política de Privacidade</a>
+                    <a href="#" class="footer__link">Termos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+        <div class="btn__glow"></div>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
