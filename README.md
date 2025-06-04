@@ -26,5 +26,9 @@ Animações e efeitos leves com JavaScript
 
 Criar uma presença digital impactante para o professor, destacando sua formação, experiência no fisiculturismo e abordagem técnica e personalizada com seus alunos.
 
+## Site no ar
+
+- https://personal-gabriel.vercel.app/
+
 📩 Contato
 Para dúvidas, sugestões ou colaborações, entre em contato pelo LinkedIn ou email: guilherme.devsoft@gmail.com
