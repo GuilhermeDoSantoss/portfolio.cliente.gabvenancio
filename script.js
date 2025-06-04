@@ -211,7 +211,7 @@ function openWhatsApp() {
 function openEmail() {
   const subject = "Interesse em Personal Training"
   const body =
-    "Olá Carlos,\n\nVi seu site e gostaria de saber mais sobre seus serviços de personal trainer.\n\nAguardo seu contato.\n\nObrigado!"
+    "Olá Gabriel,\n\nVi seu site e gostaria de saber mais sobre seus serviços de personal trainer.\n\nAguardo seu contato.\n\nObrigado!"
   const emailURL = `mailto:carlos@fitpro.com.br?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
   window.location.href = emailURL
 
