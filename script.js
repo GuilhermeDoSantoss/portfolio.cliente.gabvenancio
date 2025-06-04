@@ -202,7 +202,7 @@ backToTop.addEventListener("click", () => {
 // ===== CONTACT ACTIONS =====
 function openWhatsApp() {
   const message = `Olá Carlos! Vi seu site e gostaria de saber mais sobre seus serviços de personal trainer. Podemos conversar?`
-  const whatsappURL = `https://wa.me/5511999999999?text=${encodeURIComponent(message)}`
+  const whatsappURL = `https://wa.me/+5521976913725?text=${encodeURIComponent(message)}`
   window.open(whatsappURL, "_blank")
 
   showNotification("Redirecionando para o WhatsApp...", "success")
