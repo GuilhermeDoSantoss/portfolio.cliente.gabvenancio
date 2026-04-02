@@ -337,7 +337,9 @@
     .scroll-hint {
       position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
       z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 8px;
+      /* Oculto em telas menores — hero vira coluna única */
     }
+    @media (max-width: 1024px) { .scroll-hint { display: none; } }
     .scroll-hint span { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white-3); }
     .scroll-line {
       width: 1px; height: 48px;
@@ -662,26 +664,123 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 1024px) {
-      .hero { grid-template-columns: 1fr; min-height: auto; }
-      .hero-left { padding: 130px 32px 80px; }
-      .hero-right { display: none; }
-      .about-grid, .diff-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-      .about-img { max-width: 380px; }
-      .diff-photo { display: none; }
-      .svc-grid, .testi-grid, .plans-grid { grid-template-columns: 1fr; gap: 2px; }
+      /* Hero: empilha conteúdo + foto */
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .hero-left {
+        padding: 130px 32px 48px;
+        order: 1;
+      }
+      /* Hero photo: visível em bloco abaixo do conteúdo */
+      .hero-right {
+        display: block;          /* era: none — CORRIGIDO */
+        order: 2;
+        position: relative;
+        width: 100%;
+        height: 420px;           /* altura fixa proporcional */
+        overflow: hidden;
+      }
+      .hero-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        min-height: unset;
+      }
+      /* Oculta cantos decorativos no mobile para não sobrepor */
+      .hero-corner-tl,
+      .hero-corner-br { display: none; }
+      /* Badge flutuante: reposiciona dentro da imagem */
+      .hero-float {
+        left: 16px;
+        bottom: 20px;
+        right: 16px;
+      }
+
+      /* About / Diff / Contact: coluna única */
+      .about-grid,
+      .diff-grid,
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+
+      .about-img {
+        max-width: 420px;
+        width: 100%;
+      }
+      .about-img img {
+        width: 100%;
+        height: auto;            /* proporcional, sem corte */
+        aspect-ratio: 4/5;
+      }
+
+      /* Diff photo: visível em bloco empilhado */
+      .diff-photo {
+        display: block;          /* era: none — CORRIGIDO */
+        width: 100%;
+        max-width: 420px;
+      }
+      .diff-photo img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4/5;
+        object-fit: cover;
+        object-position: top;
+      }
+      /* Quote sobre a foto: posição estática no mobile */
+      .diff-quote {
+        position: static;
+        margin-top: 0;
+        border-left: 2px solid var(--gold);
+      }
+
+      /* Grids de cards: coluna única */
+      .svc-grid,
+      .testi-grid,
+      .plans-grid { grid-template-columns: 1fr; gap: 2px; }
+
+      /* Results: 2 colunas em tablet */
       .results-grid { grid-template-columns: 1fr 1fr; }
+      .result-card { aspect-ratio: 3/4; }
     }
+
     @media (max-width: 768px) {
       .nav-links, .nav-actions .btn-ghost { display: none; }
       .hamburger { display: flex; }
       .container { padding: 0 20px; }
       .section-pad { padding: 72px 0; }
       .hero-stats { gap: 24px; flex-wrap: wrap; }
+
+      /* Hero photo menor em mobile */
+      .hero-right { height: 340px; }
+
       .cred-inner { gap: 20px; }
       .cred-sep { display: none; }
-      .results-grid { grid-template-columns: 1fr; max-width: 300px; margin: 0 auto; }
+
+      /* Results: 1 coluna em mobile, largura total */
+      .results-grid {
+        grid-template-columns: 1fr;
+        max-width: 100%;          /* era: 300px — CORRIGIDO */
+        margin: 0;
+      }
+      .result-card {
+        aspect-ratio: 16/9;      /* mais largo que alto numa coluna única */
+      }
+      .result-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
       .foot-inner { flex-direction: column; text-align: center; }
       .foot-links { justify-content: center; }
+    }
+
+    /* Extra small screens */
+    @media (max-width: 480px) {
+      .hero-right { height: 280px; }
+      .hero-float { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .result-card { aspect-ratio: 4/3; }
     }
   </style>
 </head>
@@ -751,11 +850,11 @@
           </div>
           <div class="hero-stats reveal d5">
             <div>
-              <div class="stat-n">100+</div>
+              <div class="stat-n">20+</div>
               <div class="stat-l">Alunos Transformados</div>
             </div>
             <div>
-              <div class="stat-n">4+</div>
+              <div class="stat-n">3+</div>
               <div class="stat-l">Anos de Experiência</div>
             </div>
             <div>
@@ -767,7 +866,7 @@
       </div>
 
       <div class="hero-right">
-        <img src="img/gabriel3.jpg" alt="Prof. Gabriel Venancio" class="hero-photo" />
+        <img src="img/gabriel1.jpg" alt="Prof. Gabriel Venancio" class="hero-photo" data-fallback="hero" />
         <div class="hero-photo-overlay"></div>
         <div class="hero-corner-tl"></div>
         <div class="hero-corner-br"></div>
@@ -808,7 +907,7 @@
       <div class="container">
         <div class="about-grid">
           <div class="about-img rl">
-            <img src="img/gabriel1.jpg" alt="Prof. Gabriel Venancio" />
+            <img src="img/gabriel3.jpg" alt="Prof. Gabriel Venancio" data-fallback="person" />
             <div class="about-badge">
               <span class="n">3+</span>
               <span class="t">Anos de<br>Experiência</span>
@@ -843,17 +942,17 @@
             <div class="eyebrow">Transformações Reais</div>
             <h2 class="section-h">Resultados que<br>Falam por Si</h2>
           </div>
-          <p class="section-sub reveal" style="max-width:300px">Alunos reais, transformações verificáveis. Corpo reconstruído, saúde recuperada, autoestima elevada.</p>
+          <p class="section-sub reveal" style="max-width:min(300px, 100%)">Alunos reais, transformações verificáveis. Corpo reconstruído, saúde recuperada, autoestima elevada.</p>
         </div>
         <div class="results-grid reveal">
           <div class="result-card">
             <img src="img/marcos.jpg" alt="Marcos — +8kg massa muscular"
-              onerror="this.parentElement.innerHTML='<div class=result-ph><i class=\'fas fa-camera\'></i><span>Foto em breve</span></div><div class=result-over><div><strong>Marcos</strong><span>+8kg de massa muscular</span></div></div>'" />
+              data-fallback="result" />
             <div class="result-over"><div><strong>Marcos</strong><span>+8kg de massa muscular</span></div></div>
           </div>
           <div class="result-card">
             <img src="img/fernando.jpg" alt="Fernando — Definição e massa"
-              onerror="this.parentElement.innerHTML='<div class=result-ph><i class=\'fas fa-camera\'></i><span>Foto em breve</span></div><div class=result-over><div><strong>Fernando, 27 anos</strong><span>Definição + massa muscular</span></div></div>'" />
+              data-fallback="result" />
             <div class="result-over"><div><strong>Fernando, 27 anos</strong><span>Definição + massa muscular</span></div></div>
           </div>
           <div class="result-card">
@@ -957,7 +1056,7 @@
             </div>
           </div>
           <div class="diff-photo rr">
-            <img src="img/gabriel2.jpg" alt="Metodologia Gabriel Venancio" />
+            <img src="img/gabriel2.jpg" alt="Metodologia Gabriel Venancio" data-fallback="person" />
             <div class="diff-quote">
               <p>"Resultado não é acidente. É método, consistência e a pessoa certa ao seu lado."</p>
               <cite>— Prof. Gabriel Venancio</cite>
@@ -980,7 +1079,7 @@
             <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
             <p class="testi-text">Treino há 5 meses com o Gabriel e os resultados são incríveis. Finalmente consegui o corpo que sempre quis!</p>
             <div class="testi-author">
-              <div class="t-avatar"><img src="img/marcos.jpg" alt="Marcos" onerror="this.outerHTML='<div class=t-avatar><i class=fas fa-user></i></div>'"/></div>
+              <div class="t-avatar"><img src="img/marcos.jpg" alt="Marcos" data-fallback="result"/></div>
               <div><div class="t-name">Marcos</div><div class="t-result">+8kg de massa muscular</div></div>
             </div>
           </div>
@@ -988,7 +1087,7 @@
             <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
             <p class="testi-text">Profissional incrível! Me ajudou a superar minhas limitações. Hoje me sinto muito mais disposto e saudável.</p>
             <div class="testi-author">
-              <div class="t-avatar"><img src="img/fernando.jpg" alt="Fernando" onerror="this.outerHTML='<div class=t-avatar><i class=fas fa-user></i></div>'"/></div>
+              <div class="t-avatar"><img src="img/fernando.jpg" alt="Fernando" data-fallback="result"/></div>
               <div><div class="t-name">Fernando Santos, 27</div><div class="t-result">Definição + massa muscular</div></div>
             </div>
           </div>
@@ -1132,66 +1231,134 @@
 
   <button id="back-top" onclick="goTop()"><i class="fas fa-chevron-up"></i></button>
 
-  <script>
-    // Loader
-    window.addEventListener('load', () => {
-      setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1700);
+    <script>
+    // ── LOADER ──────────────────────────────────────────────────────────
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        var loader = document.getElementById('loader');
+        if (loader) loader.classList.add('hidden');
+      }, 1700);
     });
 
-    // Header scroll
-    const hdr = document.getElementById('hdr');
-    const bt = document.getElementById('back-top');
-    window.addEventListener('scroll', () => {
-      const s = window.scrollY;
-      hdr.classList.toggle('scrolled', s > 80);
-      bt.classList.toggle('show', s > 400);
+    // ── HEADER SCROLL + BACK-TO-TOP ─────────────────────────────────────
+    var hdr = document.getElementById('hdr');
+    var bt  = document.getElementById('back-top');
+    window.addEventListener('scroll', function () {
+      var s = window.scrollY;
+      if (hdr) hdr.classList.toggle('scrolled', s > 80);
+      if (bt)  bt.classList.toggle('show', s > 400);
+    }, { passive: true });
+
+    // ── MOBILE MENU ──────────────────────────────────────────────────────
+    var hambtn  = document.getElementById('hambtn');
+    var mobNav  = document.getElementById('mob-nav');
+    var mobClose = document.getElementById('mob-close');
+
+    if (hambtn)  hambtn.addEventListener('click',  openMob);
+    if (mobClose) mobClose.addEventListener('click', closeMob);
+
+    function openMob()  { if (mobNav) mobNav.classList.add('open'); }
+    function closeMob() { if (mobNav) mobNav.classList.remove('open'); }
+
+    // Close mobile menu when any link inside is clicked
+    document.querySelectorAll('.mobile-nav a').forEach(function (a) {
+      a.addEventListener('click', closeMob);
     });
 
-    // Mobile menu
-    document.getElementById('hambtn').addEventListener('click', () => document.getElementById('mob-nav').classList.add('open'));
-    document.getElementById('mob-close').addEventListener('click', closeMob);
-    function closeMob() { document.getElementById('mob-nav').classList.remove('open'); }
-
-    // Scroll reveal
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+    // ── SCROLL REVEAL ────────────────────────────────────────────────────
+    var revealObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          revealObs.unobserve(e.target);
+        }
+      });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal, .rl, .rr').forEach(el => obs.observe(el));
 
-    // Back to top
+    document.querySelectorAll('.reveal, .rl, .rr').forEach(function (el) {
+      revealObs.observe(el);
+    });
+
+    // ── BACK TO TOP ──────────────────────────────────────────────────────
     function goTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-    // Contact
+    // ── CONTACT ──────────────────────────────────────────────────────────
     function openWA() {
-      const msg = encodeURIComponent('Olá, Gabriel! Vi seu site e gostaria de agendar uma avaliação gratuita.');
+      var msg = encodeURIComponent('Olá, Gabriel! Vi seu site e gostaria de agendar uma avaliação gratuita.');
       window.open('https://wa.me/5521976913725?text=' + msg, '_blank');
     }
     function openEmail() {
       window.location.href = 'mailto:gabrielvenancio@email.com?subject=Contato via Site';
     }
 
-    // Active nav highlight
-    const secs = document.querySelectorAll('section[id]');
-    const nls = document.querySelectorAll('.nav-links a');
-    new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          nls.forEach(a => a.style.color = '');
-          const ac = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
-          if (ac) ac.style.color = 'var(--gold)';
-        }
+    // ── ACTIVE NAV HIGHLIGHT (scroll-based) ─────────────────────────────
+    var allSections = Array.prototype.slice.call(document.querySelectorAll('section[id]'));
+    var navLinks    = document.querySelectorAll('.nav-links a');
+
+    window.addEventListener('scroll', function () {
+      var mid = window.scrollY + window.innerHeight / 2;
+      var current = '';
+      allSections.forEach(function (sec) {
+        if (sec.offsetTop <= mid) current = sec.id;
       });
-    }, { threshold: 0.45 }).observe; // passive binding
-    // simple version
-    const sAll = [...document.querySelectorAll('section[id]')];
-    window.addEventListener('scroll', () => {
-      const mid = window.scrollY + window.innerHeight / 2;
-      let current = '';
-      sAll.forEach(s => { if (s.offsetTop <= mid) current = s.id; });
-      nls.forEach(a => {
-        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
+      navLinks.forEach(function (a) {
+        a.style.color = (a.getAttribute('href') === '#' + current) ? 'var(--gold)' : '';
       });
     }, { passive: true });
+
+    // ── IMAGE FALLBACK (safe, no inline escaping issues) ─────────────────
+    document.querySelectorAll('img[data-fallback]').forEach(function (img) {
+      img.addEventListener('error', function () {
+        var type = img.getAttribute('data-fallback');
+
+        if (type === 'result') {
+          // Result card: show camera placeholder
+          var card = img.closest('.result-card');
+          if (card) {
+            img.style.display = 'none';
+            // Only insert placeholder if not already there
+            if (!card.querySelector('.result-ph')) {
+              var ph = document.createElement('div');
+              ph.className = 'result-ph';
+              ph.innerHTML = '<i class="fas fa-camera"></i><span>Foto em breve</span>';
+              card.insertBefore(ph, card.firstChild);
+            }
+          }
+
+        } else if (type === 'avatar') {
+          // Testimonial avatar: show user icon
+          var wrap = img.closest('.t-avatar');
+          if (wrap) {
+            img.style.display = 'none';
+            if (!wrap.querySelector('i')) {
+              var ic = document.createElement('i');
+              ic.className = 'fas fa-user';
+              ic.style.cssText = 'color:var(--gold-dk);font-size:.95rem';
+              wrap.appendChild(ic);
+            }
+          }
+
+        } else if (type === 'hero') {
+          // Hero: hide the whole hero-right section gracefully
+          var heroRight = img.closest('.hero-right');
+          if (heroRight) {
+            heroRight.style.background = 'linear-gradient(135deg, #181818 0%, #0a0a0a 100%)';
+            img.style.display = 'none';
+          }
+
+        } else if (type === 'person') {
+          // About / Diff photo: show a styled placeholder
+          img.style.display = 'none';
+          var wrap2 = img.parentElement;
+          if (wrap2) {
+            var ph2 = document.createElement('div');
+            ph2.style.cssText = 'width:100%;aspect-ratio:4/5;background:#181818;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;';
+            ph2.innerHTML = '<i class="fas fa-user" style="font-size:4rem;color:#9A7730;opacity:0.3"></i><span style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:#7A7060">Foto em breve</span>';
+            wrap2.insertBefore(ph2, img.nextSibling);
+          }
+        }
+      });
+    });
   </script>
 </body>
 </html>
