@@ -3,1348 +3,1631 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Prof. Gabriel Venancio — Personal Trainer certificado no Rio de Janeiro. Transformação real, metodologia científica, resultados comprovados. Agende sua avaliação gratuita." />
-  <title>Gabriel Venancio | Personal Trainer de Elite</title>
+  <meta name="description" content="Gabriel Venancio — Personal Trainer certificado no Rio de Janeiro. Metodologia científica, transformação real. Agende sua avaliação gratuita." />
+  <title>Gabriel Venancio | Personal Trainer de Elite · Rio de Janeiro</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 16px; }
+<style>
+/* ═══════════════════════════════════════════════════════════
+   RESET & TOKENS
+═══════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
-    :root {
-      --black:    #0a0a0a;
-      --black-2:  #111111;
-      --black-3:  #181818;
-      --black-4:  #222222;
-      --gold:     #C9A84C;
-      --gold-lt:  #E8C96A;
-      --gold-dk:  #9A7730;
-      --white:    #F5F0E8;
-      --white-2:  #BDB49A;
-      --white-3:  #7A7060;
-      --font-display: 'Bebas Neue', sans-serif;
-      --font-serif:   'Cormorant Garamond', serif;
-      --font-body:    'DM Sans', sans-serif;
-      --transition:   0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      --glow: 0 0 40px rgba(201,168,76,0.18);
-    }
+:root {
+  /* Palette */
+  --ink:      #080808;
+  --ink-2:    #101010;
+  --ink-3:    #181818;
+  --ink-4:    #242424;
+  --ink-5:    #2e2e2e;
+  --gold:     #C8A45A;
+  --gold-lt:  #E2C07A;
+  --gold-dk:  #8C6E32;
+  --gold-dim: rgba(200,164,90,.12);
+  --cream:    #F2EDE4;
+  --cream-2:  #B8B09A;
+  --cream-3:  #787060;
+  /* Typography */
+  --ff-display: 'Bebas Neue', sans-serif;
+  --ff-serif:   'Cormorant Garamond', serif;
+  --ff-body:    'DM Sans', sans-serif;
+  /* Motion */
+  --ease:     cubic-bezier(.22,.68,0,1.2);
+  --ease-out: cubic-bezier(.16,1,.3,1);
+  --dur:      .45s;
+  /* Spacing scale */
+  --space-xs:  8px;
+  --space-sm:  16px;
+  --space-md:  32px;
+  --space-lg:  64px;
+  --space-xl:  120px;
+  /* Layout */
+  --max-w:    1200px;
+  --radius:   2px;
+}
 
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: var(--font-body);
-      font-weight: 300;
-      line-height: 1.65;
-      overflow-x: hidden;
-    }
+body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--ff-body);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
 
-    a { text-decoration: none; color: inherit; }
-    img { display: block; max-width: 100%; }
-    ::selection { background: var(--gold); color: var(--black); }
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--black-2); }
-    ::-webkit-scrollbar-thumb { background: var(--gold-dk); border-radius: 2px; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: inherit; }
+img { display: block; max-width: 100%; height: auto; }
+::selection { background: var(--gold); color: var(--ink); }
 
-    /* ===== LOADER ===== */
-    #loader {
-      position: fixed; inset: 0; z-index: 9999;
-      background: var(--black);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 24px;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
-    }
-    #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-    .loader-logo {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 5vw, 3rem);
-      letter-spacing: 0.18em; color: var(--gold);
-    }
-    .loader-bar {
-      width: 200px; height: 1px;
-      background: var(--black-4); position: relative; overflow: hidden;
-    }
-    .loader-bar::after {
-      content: '';
-      position: absolute; inset-y: 0; left: -100%; width: 100%;
-      background: var(--gold);
-      animation: loadfill 1.6s ease forwards;
-    }
-    @keyframes loadfill { to { left: 0; } }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--ink-2); }
+::-webkit-scrollbar-thumb { background: var(--gold-dk); }
 
-    /* ===== NOISE ===== */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      opacity: 0.022;
-    }
+/* ═══════════════════════════════════════════════════════════
+   NOISE TEXTURE OVERLAY
+═══════════════════════════════════════════════════════════ */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 9000; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: .028;
+}
 
-    /* ===== HEADER ===== */
-    header {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 22px 0;
-      transition: background var(--transition), padding var(--transition);
-    }
-    header.scrolled {
-      background: rgba(10,10,10,0.92);
-      backdrop-filter: blur(16px);
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(201,168,76,0.12);
-    }
-    .nav {
-      max-width: 1200px; margin: 0 auto; padding: 0 32px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-brand {
-      display: flex; align-items: center; gap: 12px;
-    }
-    .brand-icon {
-      width: 36px; height: 36px;
-      border: 1px solid var(--gold-dk);
-      display: grid; place-items: center;
-      color: var(--gold); font-size: 0.82rem;
-    }
-    .brand-name {
-      font-family: var(--font-display);
-      font-size: 1.05rem; letter-spacing: 0.12em; color: var(--white);
-    }
-    .brand-name span { color: var(--gold); }
+/* ═══════════════════════════════════════════════════════════
+   LOADER
+═══════════════════════════════════════════════════════════ */
+#loader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--ink);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+  transition: opacity .55s ease, visibility .55s ease;
+}
+#loader.out { opacity: 0; visibility: hidden; }
 
-    .nav-links { display: flex; gap: 36px; list-style: none; }
-    .nav-links a {
-      font-size: 0.77rem; letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--white-2); position: relative;
-      transition: color var(--transition);
-    }
-    .nav-links a::after {
-      content: ''; position: absolute; bottom: -4px; left: 0;
-      width: 0; height: 1px; background: var(--gold);
-      transition: width var(--transition);
-    }
-    .nav-links a:hover { color: var(--gold); }
-    .nav-links a:hover::after { width: 100%; }
+.ld-word {
+  font-family: var(--ff-display);
+  font-size: clamp(1.6rem,4vw,2.6rem);
+  letter-spacing: .22em;
+  color: var(--gold);
+  overflow: hidden;
+}
+.ld-bar {
+  width: 160px; height: 1px;
+  background: var(--ink-4); position: relative; overflow: hidden;
+}
+.ld-bar::after {
+  content: '';
+  position: absolute; inset-block: 0; left: -100%; width: 100%;
+  background: linear-gradient(90deg, transparent, var(--gold), var(--gold-lt));
+  animation: ld-fill 1.5s var(--ease-out) forwards;
+}
+@keyframes ld-fill { to { left: 0; } }
 
-    .nav-actions { display: flex; align-items: center; gap: 12px; }
+/* ═══════════════════════════════════════════════════════════
+   LAYOUT HELPERS
+═══════════════════════════════════════════════════════════ */
+.wrap { max-width: var(--max-w); margin-inline: auto; padding-inline: var(--space-md); }
+.section { padding-block: var(--space-xl); }
+.section--alt { background: var(--ink-2); }
 
-    .btn-gold {
-      padding: 11px 26px;
-      background: var(--gold); color: var(--black);
-      font-family: var(--font-body); font-size: 0.77rem;
-      font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
-      border: none; cursor: pointer;
-      position: relative; overflow: hidden;
-      transition: transform var(--transition);
-    }
-    .btn-gold::before {
-      content: ''; position: absolute; inset: 0;
-      background: var(--gold-lt); transform: scaleX(0); transform-origin: left;
-      transition: transform var(--transition);
-    }
-    .btn-gold:hover::before { transform: scaleX(1); }
-    .btn-gold > * { position: relative; z-index: 1; }
-    .btn-gold:hover { transform: translateY(-1px); }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: .68rem; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: var(--space-sm);
+}
+.eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
 
-    .btn-ghost {
-      padding: 11px 26px;
-      background: transparent; color: var(--gold);
-      font-family: var(--font-body); font-size: 0.77rem;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      border: 1px solid var(--gold-dk); cursor: pointer;
-      transition: all var(--transition);
-    }
-    .btn-ghost:hover {
-      background: rgba(201,168,76,0.08);
-      border-color: var(--gold);
-    }
+.section-h {
+  font-family: var(--ff-display);
+  font-size: clamp(2.4rem,5vw,4rem);
+  letter-spacing: .04em; line-height: 1.0;
+  color: var(--cream);
+}
+.section-p { font-size: .96rem; color: var(--cream-3); line-height: 1.75; max-width: 480px; margin-top: 14px; }
+.gold-bar { width: 40px; height: 2px; background: linear-gradient(90deg,var(--gold),transparent); margin-block: 24px; }
 
-    .hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      background: none; border: none; cursor: pointer; padding: 4px;
-    }
-    .hamburger span {
-      display: block; width: 24px; height: 1px;
-      background: var(--white); transition: all var(--transition);
-    }
+/* ═══════════════════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 32px;
+  font-size: .76rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+  border: none; position: relative; overflow: hidden;
+  transition: transform .2s var(--ease), box-shadow .2s ease;
+  white-space: nowrap;
+}
+.btn:active { transform: scale(.97); }
 
-    /* Mobile nav */
-    .mobile-nav {
-      display: none; position: fixed; inset: 0; z-index: 99;
-      background: var(--black);
-      flex-direction: column; align-items: center; justify-content: center; gap: 32px;
-    }
-    .mobile-nav.open { display: flex; }
-    .mobile-nav a {
-      font-family: var(--font-display); font-size: clamp(2rem, 7vw, 3rem);
-      letter-spacing: 0.1em; color: var(--white-2);
-      transition: color var(--transition);
-    }
-    .mobile-nav a:hover { color: var(--gold); }
-    .mobile-close {
-      position: absolute; top: 24px; right: 32px;
-      background: none; border: none; color: var(--white-2);
-      font-size: 1.4rem; cursor: pointer;
-    }
+.btn--gold {
+  background: var(--gold); color: var(--ink);
+}
+.btn--gold::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--gold-lt);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .35s var(--ease-out);
+}
+.btn--gold > * { position: relative; z-index: 1; }
+.btn--gold:hover::before { transform: scaleX(1); }
+.btn--gold:hover { box-shadow: 0 0 28px rgba(200,164,90,.35); transform: translateY(-1px); }
 
-    /* ===== LAYOUT ===== */
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
-    section { position: relative; z-index: 1; }
-    .section-pad { padding: 120px 0; }
-    .section-alt { background: var(--black-2); }
+.btn--ghost {
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold-dk);
+}
+.btn--ghost:hover { background: var(--gold-dim); border-color: var(--gold); }
 
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 20px;
-    }
-    .eyebrow::before {
-      content: ''; display: block; width: 28px; height: 1px; background: var(--gold);
-    }
+.btn--full { width: 100%; justify-content: center; }
 
-    .section-h {
-      font-family: var(--font-display);
-      font-size: clamp(2.4rem, 5vw, 3.8rem);
-      letter-spacing: 0.04em; line-height: 1.05; color: var(--white);
-    }
-    .section-sub {
-      font-size: 0.98rem; color: var(--white-3);
-      margin-top: 14px; max-width: 520px; line-height: 1.7;
-    }
-    .gold-rule { width: 48px; height: 2px; background: linear-gradient(90deg, var(--gold), transparent); margin: 28px 0; }
+/* ═══════════════════════════════════════════════════════════
+   HEADER / NAV
+═══════════════════════════════════════════════════════════ */
+.header {
+  position: fixed; top: 0; inset-inline: 0; z-index: 500;
+  padding-block: 22px;
+  transition: background .4s ease, padding .35s ease, border-color .4s ease;
+  border-bottom: 1px solid transparent;
+}
+.header.stuck {
+  background: rgba(8,8,8,.92);
+  backdrop-filter: blur(18px);
+  padding-block: 14px;
+  border-color: rgba(200,164,90,.12);
+}
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-md);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0;
+}
+.nav-logo-icon {
+  width: 34px; height: 34px;
+  border: 1px solid var(--gold-dk);
+  display: grid; place-items: center;
+  color: var(--gold); font-size: .78rem;
+}
+.nav-logo-name {
+  font-family: var(--ff-display);
+  font-size: 1rem; letter-spacing: .12em;
+  color: var(--cream);
+}
+.nav-logo-name em { color: var(--gold); font-style: normal; }
 
-    /* ===== HERO ===== */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 55% 45%;
-      grid-template-rows: 1fr;        /* explicit row prevents height blowout on reflow */
-      align-items: stretch;
-      padding-top: 0;
-      overflow: hidden;
-      max-width: 100vw;               /* guard against horizontal overflow */
-    }
-    .hero-bg {
-      position: absolute; inset: 0; z-index: 0;
-      background:
-        radial-gradient(ellipse 50% 70% at 65% 55%, rgba(201,168,76,0.07) 0%, transparent 65%),
-        var(--black);
-    }
-    .hero-grid {
-      position: absolute; inset: 0; z-index: 0; pointer-events: none;
-      background-image:
-        linear-gradient(rgba(201,168,76,0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(201,168,76,0.035) 1px, transparent 1px);
-      background-size: 72px 72px;
-      mask-image: radial-gradient(ellipse 80% 80% at 40% 50%, black 10%, transparent 75%);
-    }
-    .hero-left {
-      position: relative; z-index: 1;
-      display: flex; align-items: center;
-      padding: 120px 48px 80px 32px;
-      padding-left: max(32px, calc((100vw - 1200px) / 2 + 32px));
-    }
-    .hero-inner { max-width: 600px; }
+.nav-links {
+  display: flex; gap: 32px; list-style: none;
+}
+.nav-links a {
+  font-size: .73rem; letter-spacing: .13em; text-transform: uppercase;
+  color: var(--cream-2); position: relative;
+  transition: color .25s;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1px; background: var(--gold);
+  transition: width .3s var(--ease-out);
+}
+.nav-links a:hover,
+.nav-links a.active { color: var(--gold); }
+.nav-links a:hover::after,
+.nav-links a.active::after { width: 100%; }
 
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 8px 18px;
-      border: 1px solid rgba(201,168,76,0.3);
-      background: rgba(201,168,76,0.06);
-      font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 36px;
-    }
+.nav-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.nav-cref {
+  font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--gold-dk); padding: 8px 14px;
+  border: 1px solid rgba(200,164,90,.2);
+  display: none;
+}
 
-    .hero-h {
-      font-family: var(--font-display);
-      font-size: clamp(3.4rem, 8vw, 6.5rem);
-      line-height: 0.95; letter-spacing: 0.02em; color: var(--white);
-      margin-bottom: 28px;
-    }
-    .hero-h .grad {
-      display: block;
-      background: linear-gradient(130deg, var(--gold-lt) 0%, var(--gold) 55%, var(--gold-dk) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
+/* Hamburger */
+.nav-hamburger {
+  display: none; flex-direction: column; justify-content: center;
+  gap: 5px; background: none; border: none; padding: 6px;
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 1px;
+  background: var(--cream-2);
+  transition: all .3s var(--ease-out);
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-    .hero-p {
-      font-size: 1.05rem; color: var(--white-2); line-height: 1.75;
-      max-width: 460px; margin-bottom: 48px;
-    }
-    .hero-p strong { color: var(--white); font-weight: 500; }
+/* Drawer */
+.nav-drawer {
+  position: fixed; inset: 0; z-index: 490;
+  background: var(--ink);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 36px;
+  opacity: 0; visibility: hidden;
+  transition: opacity .35s ease, visibility .35s ease;
+}
+.nav-drawer.open { opacity: 1; visibility: visible; }
+.nav-drawer a {
+  font-family: var(--ff-display);
+  font-size: clamp(2rem,7vw,3.2rem);
+  letter-spacing: .1em;
+  color: var(--cream-2);
+  transition: color .2s;
+}
+.nav-drawer a:hover { color: var(--gold); }
+.nav-drawer .drawer-cta { margin-top: 16px; }
 
-    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 64px; }
-    .hero-btns .btn-gold, .hero-btns .btn-ghost { padding: 16px 40px; font-size: 0.82rem; }
+/* ═══════════════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════════════ */
+.hero {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
 
-    .hero-stats {
-      display: flex; gap: 48px;
-      padding-top: 32px;
-      border-top: 1px solid rgba(201,168,76,0.12);
-    }
-    .stat-n {
-      font-family: var(--font-display); font-size: 2.2rem;
-      color: var(--gold); letter-spacing: 0.04em; line-height: 1;
-    }
-    .stat-l {
-      font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--white-3); margin-top: 4px;
-    }
+/* atmospheric layers */
+.hero-atmo {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 70% at 72% 50%, rgba(200,164,90,.07) 0%, transparent 65%),
+    radial-gradient(ellipse 30% 50% at 10% 80%, rgba(200,164,90,.04) 0%, transparent 60%);
+}
+.hero-grid-lines {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(rgba(200,164,90,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,164,90,.035) 1px, transparent 1px);
+  background-size: 68px 68px;
+  mask-image: radial-gradient(ellipse 90% 90% at center, black 0%, transparent 75%);
+}
 
-    /* Hero Right — Photo */
-    .hero-right {
-      position: relative;
-      z-index: 1;
-      overflow: hidden;
-      /* No explicit width/height at desktop — grid column 45% drives the size */
-    }
-    .hero-photo {
-      width: 100%;
-      height: 100%;
-      min-height: 0;                  /* FIXED: was 100vh — caused overflow in stacked layout */
-      object-fit: cover;
-      object-position: top center;
-      filter: grayscale(15%) contrast(1.06);
-      display: block;
-      max-width: 100%;                /* safety: never wider than container */
-    }
-    .hero-photo-overlay {
-      position: absolute; inset: 0;
-      background:
-        linear-gradient(90deg, var(--black) 0%, transparent 25%),
-        linear-gradient(0deg, var(--black) 0%, transparent 18%);
-    }
-    .hero-corner-tl {
-      position: absolute; top: 32px; left: 32px;
-      width: 56px; height: 56px;
-      border-top: 2px solid var(--gold);
-      border-left: 2px solid var(--gold);
-    }
-    .hero-corner-br {
-      position: absolute; bottom: 32px; right: 32px;
-      width: 56px; height: 56px;
-      border-bottom: 2px solid var(--gold);
-      border-right: 2px solid var(--gold);
-    }
-    .hero-float {
-      position: absolute;
-      bottom: 80px;
-      left: 0;                        /* FIXED: was -20px which caused horizontal overflow on narrow viewports */
-      right: auto;
-      background: var(--black-2);
-      border: 1px solid var(--gold-dk);
-      padding: 18px 24px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      box-shadow: var(--glow);
-      max-width: calc(100% - 16px);   /* never wider than the photo column */
-      box-sizing: border-box;
-    }
-    .float-icon {
-      width: 44px; height: 44px; flex-shrink: 0;
-      background: linear-gradient(135deg, var(--gold-dk), var(--gold));
-      display: grid; place-items: center;
-      color: var(--black); font-size: 1.1rem;
-    }
-    .float-text strong { display: block; font-size: 0.88rem; font-weight: 500; color: var(--white); }
-    .float-text span { font-size: 0.7rem; letter-spacing: 0.08em; color: var(--gold); }
+/* left column */
+.hero-text {
+  position: relative; z-index: 1;
+  display: flex; align-items: center;
+  padding: 120px var(--space-md) 80px;
+  padding-left: max(var(--space-md), calc((100vw - var(--max-w)) / 2 + var(--space-md)));
+}
+.hero-inner { max-width: 560px; }
 
-    /* Scroll hint */
-    .scroll-hint {
-      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-      z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 8px;
-      /* Oculto em telas menores — hero vira coluna única */
-    }
-    @media (max-width: 1024px) { .scroll-hint { display: none; } }
-    .scroll-hint span { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white-3); }
-    .scroll-line {
-      width: 1px; height: 48px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
-      animation: spulse 2s ease infinite;
-    }
-    @keyframes spulse { 0%,100% { opacity:0.3; } 50% { opacity:1; } }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 16px;
+  border: 1px solid rgba(200,164,90,.3);
+  background: rgba(200,164,90,.06);
+  font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 36px;
+}
+.hero-badge i { font-size: .62rem; }
 
-    /* ===== CRED BAR ===== */
-    .cred-bar {
-      background: var(--black-2);
-      border-top: 1px solid rgba(201,168,76,0.1);
-      border-bottom: 1px solid rgba(201,168,76,0.1);
-      padding: 26px 0;
-    }
-    .cred-inner {
-      display: flex; align-items: center; justify-content: center;
-      gap: 48px; flex-wrap: wrap;
-    }
-    .cred-item {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--white-3);
-    }
-    .cred-item i { color: var(--gold); font-size: 0.85rem; }
-    .cred-sep { width: 1px; height: 24px; background: rgba(201,168,76,0.2); }
+.hero-h1 {
+  font-family: var(--ff-display);
+  font-size: clamp(3rem, 7.5vw, 6.2rem);
+  line-height: .96; letter-spacing: .025em;
+  color: var(--cream); margin-bottom: 28px;
+}
+.hero-h1 .line-gold {
+  display: block;
+  background: linear-gradient(125deg, var(--gold-lt) 0%, var(--gold) 50%, var(--gold-dk) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-    /* ===== ABOUT ===== */
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: center;
-    }
-    .about-img { position: relative; }
-    .about-img img {
-      width: 100%; aspect-ratio: 4/5;
-      object-fit: cover; object-position: top;
-      filter: grayscale(10%);
-    }
-    .about-img::before {
-      content: '';
-      position: absolute; inset: -14px -14px 14px 14px;
-      border: 1px solid rgba(201,168,76,0.18); z-index: -1;
-    }
-    .about-badge {
-      position: absolute; bottom: -20px; right: -20px;
-      background: var(--gold); color: var(--black);
-      padding: 18px 22px; text-align: center; min-width: 100px;
-    }
-    .about-badge .n { display: block; font-family: var(--font-display); font-size: 2rem; line-height: 1; }
-    .about-badge .t { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; }
+.hero-sub {
+  font-size: 1rem; color: var(--cream-2); line-height: 1.75;
+  max-width: 430px; margin-bottom: 44px;
+}
+.hero-sub strong { color: var(--cream); font-weight: 500; }
 
-    .about-copy p { font-size: 0.98rem; color: var(--white-2); line-height: 1.8; margin-bottom: 18px; }
-    .about-copy p strong { color: var(--white); font-weight: 500; }
-    .creds { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 10px; }
-    .creds li { display: flex; align-items: center; gap: 12px; font-size: 0.86rem; color: var(--white-2); }
-    .creds i { color: var(--gold); width: 14px; flex-shrink: 0; font-size: 0.7rem; }
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 56px; }
+.hero-ctas .btn { padding: 15px 36px; font-size: .78rem; }
 
-    /* ===== RESULTS ===== */
-    .results-head {
-      display: flex; align-items: flex-end; justify-content: space-between;
-      margin-bottom: 56px; gap: 24px; flex-wrap: wrap;
-    }
-    .results-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
-    }
-    .result-card {
-      position: relative; overflow: hidden;
-      aspect-ratio: 3/4; background: var(--black-3);
-    }
-    .result-card img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.6s ease, filter 0.4s ease;
-      filter: grayscale(30%) brightness(0.8);
-    }
-    .result-card:hover img { transform: scale(1.04); filter: grayscale(0%) brightness(1); }
-    .result-over {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(10,10,10,0.88) 0%, transparent 50%);
-      display: flex; align-items: flex-end; padding: 24px;
-    }
-    .result-over strong { display: block; font-size: 0.98rem; font-weight: 500; color: var(--white); }
-    .result-over span { font-size: 0.76rem; color: var(--gold); letter-spacing: 0.06em; }
-    .result-ph {
-      width: 100%; height: 100%; background: var(--black-3);
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
-    }
-    .result-ph i { font-size: 2.4rem; color: var(--gold-dk); opacity: 0.35; }
-    .result-ph span { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--white-3); }
+.hero-metrics {
+  display: flex; gap: 40px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(200,164,90,.14);
+}
+.metric-n {
+  font-family: var(--ff-display);
+  font-size: 2rem; color: var(--gold);
+  letter-spacing: .04em; line-height: 1;
+}
+.metric-l {
+  font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--cream-3); margin-top: 4px;
+}
 
-    /* ===== SERVICES ===== */
-    .svc-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 2px; margin-top: 60px;
-    }
-    .svc-card {
-      background: var(--black-2); padding: 48px 40px;
-      border: 1px solid rgba(201,168,76,0.07);
-      position: relative; overflow: hidden;
-      transition: border-color var(--transition), background var(--transition);
-    }
-    .svc-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      transform: scaleX(0); transition: transform 0.5s ease;
-    }
-    .svc-card:hover::before { transform: scaleX(1); }
-    .svc-card:hover { border-color: rgba(201,168,76,0.2); background: var(--black-3); }
-    .svc-card.top { border-color: rgba(201,168,76,0.22); background: linear-gradient(135deg, rgba(201,168,76,0.07) 0%, var(--black-2) 55%); }
-    .svc-card.top::before { transform: scaleX(1); }
+/* right column — photo */
+.hero-photo-col {
+  position: relative; z-index: 1;
+  overflow: hidden;
+  /* Desktop: column fills the full grid row (100svh via .hero min-height).
+     min-height guards against any edge-case collapse.            */
+  min-height: 480px;
+}
+.hero-photo-col img {
+  /* Absolutely fill the parent — decouples image intrinsic size from layout */
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  filter: grayscale(12%) contrast(1.06);
+}
+.hero-photo-col .photo-fade {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, var(--ink) 0%, transparent 24%),
+    linear-gradient(0deg,  var(--ink) 0%, transparent 20%);
+}
+/* corner brackets */
+.hero-photo-col .corner {
+  position: absolute; width: 52px; height: 52px; pointer-events: none;
+}
+.corner--tl { top: 28px; left: 28px; border-top: 1.5px solid var(--gold); border-left: 1.5px solid var(--gold); }
+.corner--br { bottom: 28px; right: 28px; border-bottom: 1.5px solid var(--gold); border-right: 1.5px solid var(--gold); }
 
-    .svc-num {
-      font-family: var(--font-display); font-size: 3.2rem;
-      color: rgba(201,168,76,0.1); line-height: 1; margin-bottom: 22px;
-    }
-    .svc-ico {
-      width: 46px; height: 46px;
-      border: 1px solid rgba(201,168,76,0.25);
-      display: grid; place-items: center;
-      color: var(--gold); font-size: 0.95rem; margin-bottom: 26px;
-    }
-    .svc-title {
-      font-family: var(--font-display); font-size: 1.45rem;
-      letter-spacing: 0.04em; color: var(--white); margin-bottom: 14px;
-    }
-    .svc-desc { font-size: 0.88rem; color: var(--white-3); line-height: 1.7; margin-bottom: 26px; }
-    .svc-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-    .svc-list li { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; color: var(--white-2); }
-    .svc-list i { color: var(--gold); font-size: 0.62rem; flex-shrink: 0; }
-    .pop-tag {
-      position: absolute; top: 18px; right: 18px;
-      padding: 5px 12px; background: var(--gold); color: var(--black);
-      font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500;
-    }
+/* floating credential card */
+.hero-cred-card {
+  position: absolute; bottom: 56px; left: 0;
+  display: flex; align-items: center; gap: 14px;
+  background: var(--ink-2);
+  border: 1px solid var(--gold-dk);
+  padding: 16px 22px;
+  max-width: calc(100% - 16px);
+  box-shadow: 0 0 40px rgba(200,164,90,.15);
+}
+.cred-card-icon {
+  width: 40px; height: 40px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--gold-dk), var(--gold));
+  display: grid; place-items: center;
+  color: var(--ink); font-size: .95rem;
+}
+.cred-card-text strong {
+  display: block; font-size: .84rem; font-weight: 500; color: var(--cream);
+}
+.cred-card-text span { font-size: .66rem; letter-spacing: .08em; color: var(--gold); }
 
-    /* ===== DIFFERENTIALS ===== */
-    .diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    .diff-list { display: flex; flex-direction: column; }
-    .diff-item {
-      display: flex; gap: 22px; padding: 26px 0;
-      border-bottom: 1px solid rgba(201,168,76,0.1);
-    }
-    .diff-item:first-child { border-top: 1px solid rgba(201,168,76,0.1); }
-    .diff-n { font-family: var(--font-display); font-size: 1.15rem; color: var(--gold-dk); flex-shrink: 0; width: 30px; margin-top: 3px; }
-    .diff-body strong { display: block; font-size: 0.96rem; font-weight: 500; color: var(--white); margin-bottom: 5px; }
-    .diff-body p { font-size: 0.86rem; color: var(--white-3); line-height: 1.6; }
-    .diff-photo { position: relative; }
-    .diff-photo img { width: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: top; filter: grayscale(15%); }
-    .diff-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(201,168,76,0.07) 0%, transparent 55%); }
-    .diff-quote {
-      position: absolute; bottom: 0; left: 0; right: 0; z-index: 1;
-      background: var(--black);
-      border-left: 2px solid var(--gold);
-      padding: 20px 24px;
-    }
-    .diff-quote p { font-family: var(--font-serif); font-style: italic; font-size: 1rem; color: var(--white-2); line-height: 1.5; }
-    .diff-quote cite { display: block; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-top: 8px; font-style: normal; }
+/* scroll indicator */
+.scroll-cue {
+  position: absolute; bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  z-index: 2;
+}
+.scroll-cue span { font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; color: var(--cream-3); }
+.scroll-cue-line {
+  width: 1px; height: 44px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: cue-pulse 2.2s ease infinite;
+}
+@keyframes cue-pulse { 0%,100%{opacity:.3;transform:scaleY(.85)} 50%{opacity:1;transform:scaleY(1)} }
 
-    /* ===== TESTIMONIALS ===== */
-    .testi-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 2px; margin-top: 60px;
-    }
-    .testi-card {
-      background: var(--black-2); padding: 40px;
-      border: 1px solid rgba(201,168,76,0.07);
-      transition: border-color var(--transition);
-    }
-    .testi-card:hover { border-color: rgba(201,168,76,0.22); }
-    .testi-card.hi { background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, var(--black-2) 55%); border-color: rgba(201,168,76,0.22); }
-    .stars { display: flex; gap: 4px; margin-bottom: 22px; }
-    .stars i { color: var(--gold); font-size: 0.72rem; }
-    .testi-text {
-      font-family: var(--font-serif); font-style: italic;
-      font-size: 1.04rem; color: var(--white-2); line-height: 1.7;
-      margin-bottom: 30px;
-    }
-    .testi-text::before { content: '"'; font-size: 2.8rem; color: var(--gold-dk); line-height: 0; vertical-align: -0.55em; margin-right: 3px; font-style: normal; }
-    .testi-author { display: flex; align-items: center; gap: 14px; }
-    .t-avatar {
-      width: 42px; height: 42px; border-radius: 50%;
-      border: 1px solid rgba(201,168,76,0.3);
-      overflow: hidden; flex-shrink: 0;
-      background: var(--black-4); display: grid; place-items: center;
-    }
-    .t-avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .t-avatar i { color: var(--gold-dk); font-size: 0.95rem; }
-    .t-name { font-size: 0.88rem; font-weight: 500; color: var(--white); }
-    .t-result { font-size: 0.7rem; letter-spacing: 0.08em; color: var(--gold); margin-top: 2px; }
+/* ═══════════════════════════════════════════════════════════
+   CREDENTIAL STRIP
+═══════════════════════════════════════════════════════════ */
+.cred-strip {
+  background: var(--ink-2);
+  border-top: 1px solid rgba(200,164,90,.1);
+  border-bottom: 1px solid rgba(200,164,90,.1);
+  padding-block: 22px;
+  overflow: hidden;
+}
+.cred-strip-inner {
+  display: flex; align-items: center; justify-content: center;
+  gap: 40px; flex-wrap: wrap;
+}
+.cred-chip {
+  display: flex; align-items: center; gap: 9px;
+  font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--cream-3);
+}
+.cred-chip i { color: var(--gold); font-size: .78rem; }
+.cred-divider { width: 1px; height: 20px; background: rgba(200,164,90,.18); }
 
-    /* ===== PLANS ===== */
-    .plans-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 2px; margin-top: 60px;
-    }
-    .plan-card {
-      background: var(--black-2); padding: 48px 40px;
-      border: 1px solid rgba(201,168,76,0.07);
-      display: flex; flex-direction: column;
-      transition: border-color var(--transition);
-    }
-    .plan-card:hover { border-color: rgba(201,168,76,0.22); }
-    .plan-card.hi {
-      background: linear-gradient(160deg, rgba(201,168,76,0.1) 0%, var(--black-2) 45%);
-      border-color: rgba(201,168,76,0.28);
-    }
-    .plan-lbl { font-size: 0.67rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
-    .plan-name { font-family: var(--font-display); font-size: 1.75rem; letter-spacing: 0.04em; color: var(--white); margin-bottom: 6px; }
-    .plan-tag { font-size: 0.83rem; color: var(--white-3); margin-bottom: 28px; }
-    .plan-price {
-      font-size: 0.78rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 12px 0;
-      border-top: 1px solid rgba(201,168,76,0.15);
-      border-bottom: 1px solid rgba(201,168,76,0.15);
-      margin-bottom: 28px;
-    }
-    .plan-feats { list-style: none; flex: 1; display: flex; flex-direction: column; gap: 11px; margin-bottom: 36px; }
-    .plan-feats li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.84rem; color: var(--white-2); }
-    .plan-feats i { color: var(--gold); font-size: 0.68rem; flex-shrink: 0; margin-top: 5px; }
-    .plan-btn {
-      display: block; width: 100%; padding: 14px;
-      text-align: center; font-size: 0.77rem;
-      font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
-      cursor: pointer; border: none;
-    }
+/* ═══════════════════════════════════════════════════════════
+   ABOUT
+═══════════════════════════════════════════════════════════ */
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 88px; align-items: center;
+}
+.about-photo-wrap {
+  position: relative;
+}
+/* offset frame */
+.about-photo-wrap::before {
+  content: '';
+  position: absolute; inset: -12px -12px 12px 12px;
+  border: 1px solid rgba(200,164,90,.16); z-index: 0;
+}
+.about-photo-wrap img {
+  position: relative; z-index: 1;
+  width: 100%; aspect-ratio: 4/5;
+  object-fit: cover; object-position: top;
+  filter: grayscale(10%);
+}
+.about-years {
+  position: absolute; bottom: -16px; right: -16px; z-index: 2;
+  background: var(--gold); color: var(--ink);
+  padding: 16px 20px; text-align: center;
+  min-width: 88px;
+}
+.about-years .n { display: block; font-family: var(--ff-display); font-size: 2rem; line-height: 1; }
+.about-years .l { font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; }
 
-    /* ===== CTA BAND ===== */
-    .cta-band {
-      background: linear-gradient(135deg, rgba(201,168,76,0.1) 0%, rgba(201,168,76,0.03) 40%, var(--black-2) 100%);
-      border-top: 1px solid rgba(201,168,76,0.15);
-      border-bottom: 1px solid rgba(201,168,76,0.15);
-      padding: 80px 0; text-align: center;
-    }
-    .cta-band .section-h { max-width: 580px; margin: 0 auto 14px; }
-    .cta-band > .container > p { font-size: 1rem; color: var(--white-2); max-width: 460px; margin: 0 auto 40px; line-height: 1.7; }
-    .cta-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-    .cta-row .btn-gold, .cta-row .btn-ghost { padding: 16px 40px; font-size: 0.82rem; }
+.about-copy { }
+.about-copy p { font-size: .96rem; color: var(--cream-2); line-height: 1.82; margin-bottom: 16px; }
+.about-copy p strong { color: var(--cream); font-weight: 500; }
 
-    /* ===== CONTACT ===== */
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-    .contact-lbl { font-family: var(--font-display); font-size: 1.9rem; letter-spacing: 0.04em; color: var(--white); margin-bottom: 14px; }
-    .contact-sub { font-size: 0.94rem; color: var(--white-3); line-height: 1.7; margin-bottom: 36px; }
-    .contact-list { display: flex; flex-direction: column; }
-    .c-item {
-      display: flex; gap: 18px; padding: 18px 0;
-      border-bottom: 1px solid rgba(201,168,76,0.1);
-      cursor: pointer;
-      transition: padding-left var(--transition);
-    }
-    .c-item:first-child { border-top: 1px solid rgba(201,168,76,0.1); }
-    .c-item:hover { padding-left: 8px; }
-    .c-ico {
-      width: 40px; height: 40px; flex-shrink: 0;
-      border: 1px solid rgba(201,168,76,0.2);
-      display: grid; place-items: center;
-      color: var(--gold); font-size: 0.84rem;
-      transition: all var(--transition);
-    }
-    .c-item:hover .c-ico { background: rgba(201,168,76,0.1); border-color: var(--gold); }
-    .c-txt strong { display: block; font-size: 0.86rem; font-weight: 500; color: var(--white); }
-    .c-txt span { font-size: 0.78rem; color: var(--white-3); }
-    .social-row { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
-    .soc-link {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 16px;
-      border: 1px solid rgba(201,168,76,0.15);
-      color: var(--white-2); font-size: 0.77rem; letter-spacing: 0.08em;
-      transition: all var(--transition);
-    }
-    .soc-link i { color: var(--gold); }
-    .soc-link:hover { border-color: var(--gold); color: var(--white); background: rgba(201,168,76,0.06); }
+.cred-list { list-style: none; margin-top: 24px; display: flex; flex-direction: column; gap: 9px; }
+.cred-list li { display: flex; align-items: center; gap: 12px; font-size: .85rem; color: var(--cream-2); }
+.cred-list i { color: var(--gold); font-size: .65rem; flex-shrink: 0; width: 14px; }
+.about-cta { margin-top: 36px; }
 
-    .cta-card {
-      background: var(--black-2);
-      border: 1px solid rgba(201,168,76,0.18);
-      padding: 48px; text-align: center;
-      position: relative; overflow: hidden;
-    }
-    .cta-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    }
-    .cta-card > i { font-size: 2.4rem; color: var(--gold); margin-bottom: 22px; }
-    .cta-card h4 { font-family: var(--font-display); font-size: 1.75rem; letter-spacing: 0.04em; color: var(--white); margin-bottom: 12px; }
-    .cta-card p { font-size: 0.88rem; color: var(--white-3); line-height: 1.65; margin-bottom: 30px; }
-    .cta-card .btn-gold { width: 100%; padding: 16px; font-size: 0.82rem; }
-    .cta-note { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 14px; font-size: 0.78rem; color: var(--gold); letter-spacing: 0.1em; }
+/* ═══════════════════════════════════════════════════════════
+   RESULTS GRID
+═══════════════════════════════════════════════════════════ */
+.results-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 24px; flex-wrap: wrap; margin-bottom: 48px;
+}
+.results-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+}
+.result-card {
+  position: relative; overflow: hidden;
+  aspect-ratio: 3/4;
+  background: var(--ink-3);
+  cursor: pointer;
+}
+.result-card img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top;
+  transition: transform .6s var(--ease-out), filter .4s ease;
+  filter: grayscale(25%) brightness(.85);
+}
+.result-card:hover img {
+  transform: scale(1.04);
+  filter: grayscale(0%) brightness(1);
+}
+.result-card-over {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(8,8,8,.88) 0%, transparent 55%);
+  display: flex; align-items: flex-end; padding: 22px;
+  transition: background .4s ease;
+}
+.result-card:hover .result-card-over {
+  background: linear-gradient(to top, rgba(8,8,8,.75) 0%, transparent 55%);
+}
+.result-card-over strong { display: block; font-size: .94rem; font-weight: 500; color: var(--cream); }
+.result-card-over span { font-size: .72rem; letter-spacing: .07em; color: var(--gold); margin-top: 2px; }
 
-    /* ===== FOOTER ===== */
-    footer { background: var(--black); border-top: 1px solid rgba(201,168,76,0.1); padding: 36px 0; }
-    .foot-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px; }
-    .foot-brand { font-family: var(--font-display); font-size: 0.95rem; letter-spacing: 0.12em; color: var(--white-3); }
-    .foot-brand span { color: var(--gold); }
-    .foot-links { display: flex; gap: 28px; }
-    .foot-links a { font-size: 0.73rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white-3); transition: color var(--transition); }
-    .foot-links a:hover { color: var(--gold); }
-    .foot-copy { font-size: 0.73rem; color: var(--white-3); letter-spacing: 0.06em; }
+/* placeholder card */
+.result-ph {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px;
+  background: var(--ink-3);
+}
+.result-ph i { font-size: 2rem; color: var(--gold-dk); opacity: .3; }
+.result-ph span { font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: var(--cream-3); }
 
-    /* ===== BACK TOP ===== */
-    #back-top {
-      position: fixed; bottom: 30px; right: 30px; z-index: 99;
-      width: 42px; height: 42px;
-      background: var(--black-2);
-      border: 1px solid rgba(201,168,76,0.28);
-      display: grid; place-items: center;
-      color: var(--gold); font-size: 0.78rem; cursor: pointer;
-      opacity: 0; visibility: hidden;
-      transition: all var(--transition);
-    }
-    #back-top.show { opacity: 1; visibility: visible; }
-    #back-top:hover { background: rgba(201,168,76,0.1); border-color: var(--gold); }
+/* ═══════════════════════════════════════════════════════════
+   SERVICES
+═══════════════════════════════════════════════════════════ */
+.services-lede {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 40px; align-items: end; margin-bottom: 56px;
+}
+.services-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+}
+.svc-card {
+  background: var(--ink-2);
+  padding: 44px 36px;
+  border: 1px solid rgba(200,164,90,.07);
+  position: relative; overflow: hidden;
+  transition: border-color .35s, background .35s;
+}
+.svc-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0); transform-origin: center;
+  transition: transform .5s var(--ease-out);
+}
+.svc-card:hover::before { transform: scaleX(1); }
+.svc-card:hover { border-color: rgba(200,164,90,.2); background: var(--ink-3); }
+.svc-card.svc-featured {
+  border-color: rgba(200,164,90,.22);
+  background: linear-gradient(135deg, rgba(200,164,90,.07) 0%, var(--ink-2) 55%);
+}
+.svc-card.svc-featured::before { transform: scaleX(1); }
 
-    /* ===== REVEAL ===== */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal.in { opacity: 1; transform: none; }
-    .rl { opacity: 0; transform: translateX(-28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .rl.in { opacity: 1; transform: none; }
-    .rr { opacity: 0; transform: translateX(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .rr.in { opacity: 1; transform: none; }
-    .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; }
-    .d3 { transition-delay: 0.3s; } .d4 { transition-delay: 0.4s; }
-    .d5 { transition-delay: 0.5s; }
+.svc-num {
+  font-family: var(--ff-display); font-size: 3rem;
+  color: rgba(200,164,90,.1); line-height: 1; margin-bottom: 20px;
+}
+.svc-ico {
+  width: 44px; height: 44px;
+  border: 1px solid rgba(200,164,90,.25);
+  display: grid; place-items: center;
+  color: var(--gold); font-size: .9rem; margin-bottom: 24px;
+}
+.svc-title {
+  font-family: var(--ff-display); font-size: 1.4rem; letter-spacing: .04em;
+  color: var(--cream); margin-bottom: 12px;
+}
+.svc-desc { font-size: .86rem; color: var(--cream-3); line-height: 1.7; margin-bottom: 24px; }
+.svc-feats { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.svc-feats li { display: flex; align-items: center; gap: 10px; font-size: .8rem; color: var(--cream-2); }
+.svc-feats i { color: var(--gold); font-size: .58rem; flex-shrink: 0; }
+.svc-badge {
+  position: absolute; top: 16px; right: 16px;
+  padding: 4px 12px; background: var(--gold); color: var(--ink);
+  font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 600;
+}
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 1024px) {
-      /* ── HERO: single column, content above / photo below ── */
-      .hero {
-        grid-template-columns: 1fr;   /* single column */
-        grid-template-rows: auto auto;/* two rows: text + photo */
-        min-height: auto;
-        overflow: visible;            /* allow natural stacking */
-      }
-      .hero-left {
-        grid-column: 1;
-        grid-row: 1;
-        padding: 130px 32px 48px;
-        order: 1;
-      }
-      /* Photo block: full width, fixed height, no overflow */
-      .hero-right {
-        grid-column: 1;
-        grid-row: 2;
-        order: 2;
-        display: block;
-        position: relative;
-        width: 100%;
-        max-width: 100%;              /* never exceeds viewport */
-        height: 420px;
-        min-height: 0;                /* override any inherited min-height */
-        overflow: hidden;
-        flex: none;                   /* in case flex context is inherited */
-      }
-      /* Image fills container exactly, no min-height blowout */
-      .hero-photo {
-        position: absolute;           /* fills .hero-right precisely */
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        max-width: 100%;
-        min-height: 0;
-        object-fit: cover;
-        object-position: top center;
-      }
-      /* Overlay: only top-to-bottom gradient on stacked layout */
-      .hero-photo-overlay {
-        background:
-          linear-gradient(180deg, rgba(10,10,10,0.3) 0%, transparent 25%),
-          linear-gradient(0deg,   var(--black) 0%, transparent 22%);
-      }
-      /* Decorative corners: hidden on tablet/mobile (clutter) */
-      .hero-corner-tl,
-      .hero-corner-br { display: none; }
-      /* Badge: pinned to bottom-left inside the photo block */
-      .hero-float {
-        position: absolute;
-        bottom: 16px;
-        left: 16px;
-        right: 16px;
-        max-width: calc(100% - 32px);
-        box-sizing: border-box;
-      }
+/* ═══════════════════════════════════════════════════════════
+   DIFFERENTIALS
+═══════════════════════════════════════════════════════════ */
+.diff-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 88px; align-items: start;
+}
+.diff-list { display: flex; flex-direction: column; margin-top: 40px; }
+.diff-item {
+  display: flex; gap: 20px; padding-block: 24px;
+  border-bottom: 1px solid rgba(200,164,90,.1);
+}
+.diff-item:first-child { border-top: 1px solid rgba(200,164,90,.1); }
+.diff-num {
+  font-family: var(--ff-display); font-size: 1.1rem;
+  color: var(--gold-dk); flex-shrink: 0; width: 28px; margin-top: 2px;
+}
+.diff-body strong {
+  display: block; font-size: .94rem; font-weight: 500;
+  color: var(--cream); margin-bottom: 5px;
+}
+.diff-body p { font-size: .84rem; color: var(--cream-3); line-height: 1.65; }
 
-      /* ── OTHER SECTIONS ── */
-      .about-grid,
-      .diff-grid,
-      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+.diff-photo-col { position: relative; }
+.diff-photo-col img {
+  width: 100%; aspect-ratio: 4/5;
+  object-fit: cover; object-position: top;
+  filter: grayscale(12%);
+}
+.diff-photo-col::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(200,164,90,.07) 0%, transparent 55%);
+  pointer-events: none;
+}
+.diff-quote {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 1;
+  background: var(--ink);
+  border-left: 2px solid var(--gold);
+  padding: 20px 24px;
+}
+.diff-quote p {
+  font-family: var(--ff-serif); font-style: italic;
+  font-size: 1rem; color: var(--cream-2); line-height: 1.5;
+}
+.diff-quote cite {
+  display: block; font-size: .68rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gold);
+  margin-top: 8px; font-style: normal;
+}
 
-      .about-img { max-width: 420px; width: 100%; }
-      .about-img img { width: 100%; height: auto; aspect-ratio: 4/5; }
+/* ═══════════════════════════════════════════════════════════
+   TESTIMONIALS
+═══════════════════════════════════════════════════════════ */
+.testi-header { text-align: center; max-width: 520px; margin-inline: auto; margin-bottom: 52px; }
+.testi-header .section-p { margin-inline: auto; }
+.testi-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+}
+.testi-card {
+  background: var(--ink-2);
+  padding: 38px;
+  border: 1px solid rgba(200,164,90,.07);
+  transition: border-color .35s;
+}
+.testi-card:hover { border-color: rgba(200,164,90,.22); }
+.testi-card.testi-hi {
+  background: linear-gradient(135deg, rgba(200,164,90,.08) 0%, var(--ink-2) 55%);
+  border-color: rgba(200,164,90,.2);
+}
+.testi-stars { display: flex; gap: 3px; margin-bottom: 20px; }
+.testi-stars i { color: var(--gold); font-size: .7rem; }
+.testi-text {
+  font-family: var(--ff-serif); font-style: italic;
+  font-size: 1.02rem; color: var(--cream-2); line-height: 1.72;
+  margin-bottom: 28px; position: relative; padding-left: 20px;
+}
+.testi-text::before {
+  content: '\201C';
+  position: absolute; left: 0; top: -4px;
+  font-size: 2.4rem; color: var(--gold-dk); line-height: 1; font-style: normal;
+}
+.testi-author { display: flex; align-items: center; gap: 14px; }
+.testi-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1px solid rgba(200,164,90,.3);
+  overflow: hidden; flex-shrink: 0;
+  background: var(--ink-4); display: grid; place-items: center;
+}
+.testi-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.testi-avatar i { color: var(--gold-dk); font-size: .9rem; }
+.testi-name { font-size: .86rem; font-weight: 500; color: var(--cream); }
+.testi-result { font-size: .68rem; letter-spacing: .08em; color: var(--gold); margin-top: 2px; }
 
-      .diff-photo { display: block; width: 100%; max-width: 420px; }
-      .diff-photo img { width: 100%; height: auto; aspect-ratio: 4/5; object-fit: cover; object-position: top; }
-      .diff-quote { position: static; margin-top: 0; border-left: 2px solid var(--gold); }
+/* ═══════════════════════════════════════════════════════════
+   PLANS
+═══════════════════════════════════════════════════════════ */
+.plans-header { text-align: center; max-width: 500px; margin-inline: auto; margin-bottom: 52px; }
+.plans-header .section-p { margin-inline: auto; }
+.plans-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+}
+.plan-card {
+  background: var(--ink-3);
+  padding: 44px 36px;
+  border: 1px solid rgba(200,164,90,.07);
+  display: flex; flex-direction: column;
+  transition: border-color .35s;
+}
+.plan-card:hover { border-color: rgba(200,164,90,.2); }
+.plan-card.plan-hi {
+  background: linear-gradient(155deg, rgba(200,164,90,.1) 0%, var(--ink-3) 45%);
+  border-color: rgba(200,164,90,.28);
+}
+.plan-badge-wrap { font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 9px; }
+.plan-name { font-family: var(--ff-display); font-size: 1.65rem; letter-spacing: .04em; color: var(--cream); margin-bottom: 5px; }
+.plan-tagline { font-size: .8rem; color: var(--cream-3); margin-bottom: 24px; }
+.plan-price {
+  font-size: .75rem; color: var(--gold); letter-spacing: .1em; text-transform: uppercase;
+  padding-block: 12px;
+  border-top: 1px solid rgba(200,164,90,.15);
+  border-bottom: 1px solid rgba(200,164,90,.15);
+  margin-bottom: 26px;
+}
+.plan-feats { list-style: none; flex: 1; display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+.plan-feats li { display: flex; align-items: flex-start; gap: 11px; font-size: .82rem; color: var(--cream-2); }
+.plan-feats i { color: var(--gold); font-size: .64rem; flex-shrink: 0; margin-top: 4px; }
 
-      .svc-grid,
-      .testi-grid,
-      .plans-grid { grid-template-columns: 1fr; gap: 2px; }
+/* ═══════════════════════════════════════════════════════════
+   MID-PAGE CTA BAND
+═══════════════════════════════════════════════════════════ */
+.cta-band {
+  background:
+    linear-gradient(135deg, rgba(200,164,90,.11) 0%, rgba(200,164,90,.03) 40%, var(--ink-2) 100%);
+  border-top: 1px solid rgba(200,164,90,.15);
+  border-bottom: 1px solid rgba(200,164,90,.15);
+  padding-block: 80px; text-align: center;
+}
+.cta-band .section-h { max-width: 560px; margin-inline: auto; margin-bottom: 14px; }
+.cta-band .section-p { margin-inline: auto; margin-bottom: 40px; }
+.cta-band-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.cta-band-actions .btn { padding: 15px 40px; font-size: .78rem; }
 
-      .results-grid { grid-template-columns: 1fr 1fr; }
-      .result-card { aspect-ratio: 3/4; }
-    }
+/* ═══════════════════════════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════════════════════════ */
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: start;
+}
+.contact-lede { }
+.contact-lede h2 { margin-bottom: 12px; }
+.contact-lede p { font-size: .94rem; color: var(--cream-3); line-height: 1.75; margin-bottom: 36px; }
 
-    @media (max-width: 768px) {
-      .nav-links, .nav-actions .btn-ghost { display: none; }
-      .hamburger { display: flex; }
-      .container { padding: 0 20px; }
-      .section-pad { padding: 72px 0; }
-      .hero-stats { gap: 20px; flex-wrap: wrap; }
+.contact-items { display: flex; flex-direction: column; }
+.c-item {
+  display: flex; gap: 18px; align-items: center;
+  padding-block: 17px;
+  border-bottom: 1px solid rgba(200,164,90,.1);
+  cursor: pointer;
+  transition: padding-left .25s var(--ease-out);
+}
+.c-item:first-child { border-top: 1px solid rgba(200,164,90,.1); }
+.c-item:hover { padding-left: 6px; }
+.c-item-ico {
+  width: 38px; height: 38px; flex-shrink: 0;
+  border: 1px solid rgba(200,164,90,.2);
+  display: grid; place-items: center;
+  color: var(--gold); font-size: .8rem;
+  transition: background .25s, border-color .25s;
+}
+.c-item:hover .c-item-ico { background: rgba(200,164,90,.1); border-color: var(--gold); }
+.c-item-txt strong { display: block; font-size: .84rem; font-weight: 500; color: var(--cream); }
+.c-item-txt span { font-size: .76rem; color: var(--cream-3); }
 
-      /* Photo shorter on small phones */
-      .hero-right { height: 320px; }
-      /* Badge text smaller so it fits on narrow screens */
-      .float-text strong { font-size: 0.8rem; }
-      .float-text span   { font-size: 0.66rem; }
+.social-row { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
+.social-link {
+  display: flex; align-items: center; gap: 9px;
+  padding: 9px 16px;
+  border: 1px solid rgba(200,164,90,.15);
+  color: var(--cream-2); font-size: .74rem; letter-spacing: .08em;
+  transition: all .25s;
+}
+.social-link i { color: var(--gold); }
+.social-link:hover { border-color: var(--gold); color: var(--cream); background: var(--gold-dim); }
 
-      .cred-inner { gap: 20px; }
-      .cred-sep { display: none; }
+/* Contact CTA card */
+.contact-card {
+  background: var(--ink-2);
+  border: 1px solid rgba(200,164,90,.18);
+  padding: 48px 44px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.contact-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.contact-card-icon { font-size: 2.2rem; color: var(--gold); margin-bottom: 20px; }
+.contact-card h3 {
+  font-family: var(--ff-display); font-size: 1.7rem; letter-spacing: .04em;
+  color: var(--cream); margin-bottom: 12px;
+}
+.contact-card p { font-size: .86rem; color: var(--cream-3); line-height: 1.65; margin-bottom: 28px; }
+.contact-card .btn { width: 100%; justify-content: center; padding: 15px; font-size: .78rem; }
+.contact-card-note {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  margin-top: 14px; font-size: .74rem; color: var(--gold); letter-spacing: .09em;
+}
 
-      .results-grid { grid-template-columns: 1fr; max-width: 100%; margin: 0; }
-      .result-card { aspect-ratio: 16/9; }
-      .result-card img { width: 100%; height: 100%; object-fit: cover; }
+/* ═══════════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════════ */
+.footer {
+  background: var(--ink);
+  border-top: 1px solid rgba(200,164,90,.1);
+  padding-block: 34px;
+}
+.footer-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-brand { font-family: var(--ff-display); font-size: .9rem; letter-spacing: .12em; color: var(--cream-3); }
+.footer-brand em { color: var(--gold); font-style: normal; }
+.footer-links { display: flex; gap: 28px; }
+.footer-links a { font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--cream-3); transition: color .2s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-copy { font-size: .7rem; color: var(--cream-3); }
 
-      .foot-inner { flex-direction: column; text-align: center; }
-      .foot-links { justify-content: center; }
-    }
+/* ═══════════════════════════════════════════════════════════
+   BACK TO TOP
+═══════════════════════════════════════════════════════════ */
+#back-top {
+  position: fixed; bottom: 28px; right: 28px; z-index: 200;
+  width: 40px; height: 40px;
+  background: var(--ink-2);
+  border: 1px solid rgba(200,164,90,.28);
+  display: grid; place-items: center;
+  color: var(--gold); font-size: .75rem;
+  opacity: 0; visibility: hidden;
+  transition: all .3s ease;
+  cursor: pointer;
+}
+#back-top.show { opacity: 1; visibility: visible; }
+#back-top:hover { background: var(--gold-dim); border-color: var(--gold); }
 
-    /* Extra-small phones */
-    @media (max-width: 480px) {
-      .hero-right { height: 260px; }
-      /* Stack badge icon + text vertically when very narrow */
-      .hero-float { flex-direction: column; align-items: flex-start; gap: 6px; padding: 12px 16px; }
-      .float-icon { width: 36px; height: 36px; font-size: 0.9rem; }
-      .result-card { aspect-ratio: 4/3; }
-    }
-  </style>
+/* ═══════════════════════════════════════════════════════════
+   REVEAL ANIMATIONS
+═══════════════════════════════════════════════════════════ */
+.rev   { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.rev-l { opacity: 0; transform: translateX(-24px); transition: opacity .7s ease, transform .7s ease; }
+.rev-r { opacity: 0; transform: translateX(24px);  transition: opacity .7s ease, transform .7s ease; }
+.rev.in, .rev-l.in, .rev-r.in { opacity: 1; transform: none; }
+.d1{transition-delay:.08s} .d2{transition-delay:.16s} .d3{transition-delay:.24s}
+.d4{transition-delay:.32s} .d5{transition-delay:.40s} .d6{transition-delay:.48s}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE — TABLET (≤1024px)
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  :root { --space-xl: 88px; }
+
+  /* Hero: stack text above photo */
+  .hero {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    min-height: auto;
+  }
+  .hero-text {
+    grid-row: 1;
+    padding: 120px var(--space-md) 56px;
+    padding-left: var(--space-md);
+  }
+  .hero-photo-col {
+    grid-row: 2;
+    width: 100%;
+    /* min-height: always shows at least this much.
+       height: auto lets it expand if the grid needs more.    */
+    min-height: 460px;
+    height: 50vw;            /* scales with viewport, caps at 50vw on wide tablets */
+    max-height: 560px;       /* never taller than this on tablet */
+  }
+  .hero-photo-col img {
+    /* img is already position:absolute from desktop rule — just confirm */
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+  .hero-photo-col .photo-fade {
+    background:
+      linear-gradient(180deg, var(--ink) 0%, transparent 20%),
+      linear-gradient(0deg,   var(--ink) 0%, transparent 22%);
+  }
+  .corner--tl, .corner--br { display: none; }
+  .hero-cred-card { left: 16px; right: 16px; max-width: calc(100% - 32px); }
+  .scroll-cue { display: none; }
+
+  /* Grids: single column */
+  .about-grid,
+  .diff-grid,
+  .contact-grid { grid-template-columns: 1fr; gap: 52px; }
+  .about-photo-wrap { max-width: 380px; }
+  .about-years { bottom: -12px; right: -12px; }
+  .diff-photo-col { display: none; } /* hide on tablet, show on desktop only */
+  .services-lede { grid-template-columns: 1fr; gap: 20px; }
+  .services-grid,
+  .testi-grid,
+  .plans-grid { grid-template-columns: 1fr; gap: 3px; }
+  .results-grid { grid-template-columns: 1fr 1fr; gap: 3px; }
+  .result-card { aspect-ratio: 3/4; }
+
+  /* Nav */
+  .nav-cref { display: none; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE — MOBILE (≤768px)
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  :root { --space-xl: 68px; --space-md: 20px; }
+
+  .wrap { padding-inline: 20px; }
+  .hero-text { padding: 110px 20px 48px; }
+  .hero-photo-col {
+    min-height: 400px;       /* raised from 320px — ensures image is impactful */
+    height: 55vw;            /* responsive: ~400px on 720px screen */
+    max-height: 480px;
+  }
+  .hero-metrics { gap: 24px; flex-wrap: wrap; }
+  .hero-ctas .btn { flex: 1; min-width: 0; justify-content: center; }
+
+  .cred-strip-inner { gap: 18px; }
+  .cred-divider { display: none; }
+
+  .about-photo-wrap { max-width: 100%; }
+  .about-photo-wrap::before { display: none; }
+
+  .results-grid { grid-template-columns: 1fr; }
+  .result-card { aspect-ratio: 16/9; }
+
+  .contact-card { padding: 36px 28px; }
+
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+
+  #back-top { bottom: 20px; right: 20px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE — SMALL (≤480px)
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .hero-photo-col {
+    min-height: 360px;       /* raised from 260px — still prominent on small phones */
+    height: 80vw;            /* ~360px on 450px screen */
+    max-height: 440px;
+  }
+  .hero-cred-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 14px 18px;
+    bottom: 16px;            /* explicit bottom anchor inside taller container */
+  }
+  .result-card { aspect-ratio: 4/3; }
+  .hero-metrics { gap: 20px; }
+  .metric-n { font-size: 1.7rem; }
+}
+</style>
 </head>
 <body>
 
-  <!-- LOADER -->
-  <div id="loader">
-    <div class="loader-logo">GABRIEL VENANCIO</div>
-    <div class="loader-bar"></div>
+<!-- ══════════════ LOADER ══════════════ -->
+<div id="loader">
+  <div class="ld-word">GABRIEL VENANCIO</div>
+  <div class="ld-bar"></div>
+</div>
+
+<!-- ══════════════ MOBILE DRAWER ══════════════ -->
+<nav class="nav-drawer" id="drawer" role="dialog" aria-label="Menu de navegação">
+  <a href="#sobre"       onclick="closeDrawer()">Sobre</a>
+  <a href="#servicos"    onclick="closeDrawer()">Serviços</a>
+  <a href="#resultados"  onclick="closeDrawer()">Resultados</a>
+  <a href="#depoimentos" onclick="closeDrawer()">Depoimentos</a>
+  <a href="#planos"      onclick="closeDrawer()">Planos</a>
+  <a href="#contato"     onclick="closeDrawer()">Contato</a>
+  <button class="btn btn--gold drawer-cta" onclick="openWA(); closeDrawer()">
+    <i class="fab fa-whatsapp"></i> Agendar Avaliação
+  </button>
+</nav>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header class="header" id="header">
+  <nav class="nav wrap">
+    <a href="#inicio" class="nav-logo" aria-label="Início">
+      <div class="nav-logo-icon"><i class="fas fa-dumbbell"></i></div>
+      <span class="nav-logo-name">GABRIEL <em>VENANCIO</em></span>
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#resultados">Resultados</a></li>
+      <li><a href="#depoimentos">Depoimentos</a></li>
+      <li><a href="#planos">Planos</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <span class="nav-cref">CREF 066381</span>
+      <button class="btn btn--gold" onclick="openWA()">
+        <span><i class="fab fa-whatsapp"></i>&nbsp; Agendar Avaliação</span>
+      </button>
+      <button class="nav-hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero" id="inicio" aria-label="Apresentação">
+  <div class="hero-atmo" aria-hidden="true"></div>
+  <div class="hero-grid-lines" aria-hidden="true"></div>
+
+  <!-- Text column -->
+  <div class="hero-text">
+    <div class="hero-inner">
+      <div class="hero-badge rev d1">
+        <i class="fas fa-medal"></i>
+        Personal Trainer de Elite — Rio de Janeiro
+      </div>
+
+      <h1 class="hero-h1 rev d2">
+        SEU CORPO<br>
+        <span class="line-gold">TRANSFORMADO</span><br>
+        COM CIÊNCIA
+      </h1>
+
+      <p class="hero-sub rev d3">
+        <strong>Chega de treino genérico que não entrega resultado.</strong>
+        Metodologia científica, acompanhamento individualizado e disciplina real
+        para quem leva a transformação a sério.
+      </p>
+
+      <div class="hero-ctas rev d4">
+        <button class="btn btn--gold" onclick="openWA()">
+          <span><i class="fab fa-whatsapp"></i>&nbsp; Começar Agora</span>
+        </button>
+        <a href="#planos" class="btn btn--ghost">Ver Planos</a>
+      </div>
+
+      <div class="hero-metrics rev d5">
+        <div>
+          <div class="metric-n">100+</div>
+          <div class="metric-l">Alunos Transformados</div>
+        </div>
+        <div>
+          <div class="metric-n">3+</div>
+          <div class="metric-l">Anos de Experiência</div>
+        </div>
+        <div>
+          <div class="metric-n">98%</div>
+          <div class="metric-l">Satisfação</div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- MOBILE NAV -->
-  <nav class="mobile-nav" id="mob-nav">
-    <button class="mobile-close" id="mob-close"><i class="fas fa-times"></i></button>
-    <a href="#sobre"       onclick="closeMob()">Sobre</a>
-    <a href="#servicos"    onclick="closeMob()">Serviços</a>
-    <a href="#depoimentos" onclick="closeMob()">Depoimentos</a>
-    <a href="#planos"      onclick="closeMob()">Planos</a>
-    <a href="#contato"     onclick="closeMob()">Contato</a>
-  </nav>
-
-  <!-- HEADER -->
-  <header id="hdr">
-    <nav class="nav">
-      <div class="nav-brand">
-        <div class="brand-icon"><i class="fas fa-dumbbell"></i></div>
-        <span class="brand-name">GABRIEL <span>VENANCIO</span></span>
-      </div>
-      <ul class="nav-links">
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#servicos">Serviços</a></li>
-        <li><a href="#depoimentos">Depoimentos</a></li>
-        <li><a href="#planos">Planos</a></li>
-        <li><a href="#contato">Contato</a></li>
-      </ul>
-      <div class="nav-actions">
-        <button class="btn-ghost" onclick="openWA()">CREF 066381</button>
-        <button class="btn-gold" onclick="openWA()"><span>Agendar Avaliação</span></button>
-        <button class="hamburger" id="hambtn"><span></span><span></span><span></span></button>
-      </div>
-    </nav>
-  </header>
-
-  <main>
-
-    <!-- ====== HERO ====== -->
-    <section class="hero" id="inicio">
-      <div class="hero-bg"></div>
-      <div class="hero-grid"></div>
-
-      <div class="hero-left">
-        <div class="hero-inner">
-          <div class="hero-badge reveal d1"><i class="fas fa-medal"></i>&nbsp; Personal Trainer de Elite — Rio de Janeiro</div>
-          <h1 class="hero-h reveal d2">
-            SEU CORPO<br>
-            <span class="grad">TRANSFORMADO</span><br>
-            COM CIÊNCIA
-          </h1>
-          <p class="hero-p reveal d3">
-            <strong>Chega de treino genérico que não gera resultado.</strong>
-            Metodologia científica, acompanhamento individualizado e disciplina real
-            para quem leva a transformação a sério.
-          </p>
-          <div class="hero-btns reveal d4">
-            <button class="btn-gold" onclick="openWA()"><span><i class="fab fa-whatsapp"></i>&nbsp; Começar Agora</span></button>
-            <a href="#planos" class="btn-ghost">Ver Planos</a>
-          </div>
-          <div class="hero-stats reveal d5">
-            <div>
-              <div class="stat-n">100+</div>
-              <div class="stat-l">Alunos Transformados</div>
-            </div>
-            <div>
-              <div class="stat-n">3+</div>
-              <div class="stat-l">Anos de Experiência</div>
-            </div>
-            <div>
-              <div class="stat-n">98%</div>
-              <div class="stat-l">Taxa de Satisfação</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-right">
-        <img src="img/gabriel1.jpg" alt="Prof. Gabriel Venancio" class="hero-photo" />
-        <div class="hero-photo-overlay"></div>
-        <div class="hero-corner-tl"></div>
-        <div class="hero-corner-br"></div>
-        <div class="hero-float">
-          <div class="float-icon"><i class="fas fa-trophy"></i></div>
-          <div class="float-text">
-            <strong>Formado IBMR · Pós Nutrição Esportiva</strong>
-            <span>Especialista em Biomecânica · CREF 066381</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="scroll-hint">
-        <div class="scroll-line"></div>
-        <span>Scroll</span>
-      </div>
-    </section>
-
-    <!-- CREDENCIAIS -->
-    <div class="cred-bar">
-      <div class="container">
-        <div class="cred-inner">
-          <div class="cred-item"><i class="fas fa-graduation-cap"></i> Formado IBMR 2023</div>
-          <div class="cred-sep"></div>
-          <div class="cred-item"><i class="fas fa-id-card"></i> CREF 066381</div>
-          <div class="cred-sep"></div>
-          <div class="cred-item"><i class="fas fa-flask"></i> Especialista em Biomecânica</div>
-          <div class="cred-sep"></div>
-          <div class="cred-item"><i class="fas fa-apple-alt"></i> Pós-Grad. Nutrição Esportiva</div>
-          <div class="cred-sep"></div>
-          <div class="cred-item"><i class="fas fa-map-marker-alt"></i> Rio de Janeiro, RJ</div>
-        </div>
+  <!-- Photo column -->
+  <div class="hero-photo-col" aria-hidden="true">
+    <img src="img/gabriel1.jpg"
+         alt="Prof. Gabriel Venancio — Personal Trainer"
+         loading="eager" />
+    <div class="photo-fade"></div>
+    <div class="corner corner--tl"></div>
+    <div class="corner corner--br"></div>
+    <div class="hero-cred-card">
+      <div class="cred-card-icon"><i class="fas fa-trophy"></i></div>
+      <div class="cred-card-text">
+        <strong>Formado IBMR · Pós em Nutrição Esportiva</strong>
+        <span>Especialista em Biomecânica · CREF 066381</span>
       </div>
     </div>
+  </div>
 
-    <!-- ====== SOBRE ====== -->
-    <section class="section-pad" id="sobre">
-      <div class="container">
-        <div class="about-grid">
-          <div class="about-img rl">
-            <img src="img/gabriel3.jpg" alt="Prof. Gabriel Venancio" />
-            <div class="about-badge">
-              <span class="n">3+</span>
-              <span class="t">Anos de<br>Experiência</span>
-            </div>
-          </div>
-          <div class="about-copy rr">
-            <div class="eyebrow">Sobre Mim</div>
-            <h2 class="section-h">Prof. Gabriel<br>Venancio</h2>
-            <div class="gold-rule"></div>
-            <p>Sou profissional de Educação Física, <strong>formado em 2023 na IBMR</strong>, com especialização em Biomecânica e pós-graduação em Nutrição Esportiva.</p>
-            <p>Minha missão é transformar vidas por meio do movimento, da ciência e da disciplina. <strong>Não vendo promessas fáceis — entrego método, presença e resultado real.</strong> Cada treino é elaborado com base na sua avaliação física, seus objetivos e sua realidade.</p>
-            <ul class="creds">
-              <li><i class="fas fa-check"></i> Formado em Educação Física — IBMR, 2023</li>
-              <li><i class="fas fa-check"></i> Especialização em Biomecânica Aplicada</li>
-              <li><i class="fas fa-check"></i> Pós-Graduação em Nutrição Esportiva</li>
-              <li><i class="fas fa-check"></i> Registro Profissional CREF 066381</li>
-              <li><i class="fas fa-check"></i> Atendimento presencial, semi-presencial e online</li>
-            </ul>
-            <div style="margin-top:36px">
-              <button class="btn-gold" onclick="openWA()"><span>Falar com Gabriel &nbsp;<i class="fab fa-whatsapp"></i></span></button>
-            </div>
-          </div>
+  <div class="scroll-cue" aria-hidden="true">
+    <div class="scroll-cue-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ══════════════ CREDENTIAL STRIP ══════════════ -->
+<div class="cred-strip" aria-label="Credenciais">
+  <div class="cred-strip-inner wrap">
+    <div class="cred-chip"><i class="fas fa-graduation-cap"></i> Formado IBMR 2023</div>
+    <div class="cred-divider" aria-hidden="true"></div>
+    <div class="cred-chip"><i class="fas fa-id-card"></i> CREF 066381</div>
+    <div class="cred-divider" aria-hidden="true"></div>
+    <div class="cred-chip"><i class="fas fa-flask"></i> Especialista em Biomecânica</div>
+    <div class="cred-divider" aria-hidden="true"></div>
+    <div class="cred-chip"><i class="fas fa-apple-alt"></i> Pós-Grad. Nutrição Esportiva</div>
+    <div class="cred-divider" aria-hidden="true"></div>
+    <div class="cred-chip"><i class="fas fa-map-marker-alt"></i> Rio de Janeiro, RJ</div>
+  </div>
+</div>
+
+<!-- ══════════════ SOBRE ══════════════ -->
+<section class="section" id="sobre" aria-labelledby="sobre-h">
+  <div class="wrap">
+    <div class="about-grid">
+
+      <div class="about-photo-wrap rev-l">
+        <img src="img/gabriel3.jpg" alt="Prof. Gabriel Venancio" loading="lazy" />
+        <div class="about-years">
+          <span class="n">3+</span>
+          <span class="l">Anos de<br>Experiência</span>
         </div>
       </div>
-    </section>
 
-    <!-- ====== RESULTADOS ====== -->
-    <section class="section-pad section-alt" id="resultados">
-      <div class="container">
-        <div class="results-head">
-          <div class="reveal">
-            <div class="eyebrow">Transformações Reais</div>
-            <h2 class="section-h">Resultados que<br>Falam por Si</h2>
-          </div>
-          <p class="section-sub reveal" style="max-width:min(300px, 100%)">Alunos reais, transformações verificáveis. Corpo reconstruído, saúde recuperada, autoestima elevada.</p>
-        </div>
-        <div class="results-grid reveal">
-          <div class="result-card">
-            <img src="img/marcos.jpg" alt="Marcos — +8kg massa muscular" />
-            <div class="result-over"><div><strong>Marcos</strong><span>+8kg de massa muscular</span></div></div>
-          </div>
-          <div class="result-card">
-            <img src="img/fernando.jpg" alt="Fernando — Definição e massa" />
-            <div class="result-over"><div><strong>Fernando, 27 anos</strong><span>Definição + massa muscular</span></div></div>
-          </div>
-          <div class="result-card">
-            <div class="result-ph"><i class="fas fa-user-check"></i><span>Sua transformação aqui</span></div>
-            <div class="result-over"><div><strong>O próximo pode ser você</strong><span>Agende sua avaliação gratuita</span></div></div>
-          </div>
+      <div class="about-copy rev-r">
+        <div class="eyebrow">Sobre Mim</div>
+        <h2 class="section-h" id="sobre-h">Prof. Gabriel<br>Venancio</h2>
+        <div class="gold-bar"></div>
+        <p class="about-copy">Sou profissional de Educação Física, <strong>formado em 2023 na IBMR</strong>, com especialização em Biomecânica e pós-graduação em Nutrição Esportiva.</p>
+        <p class="about-copy">Minha missão é transformar vidas pelo movimento, pela ciência e pela disciplina. <strong>Não vendo promessas — entrego método, presença e resultado verificável.</strong></p>
+        <ul class="cred-list">
+          <li><i class="fas fa-check"></i> Formado em Educação Física — IBMR, 2023</li>
+          <li><i class="fas fa-check"></i> Especialização em Biomecânica Aplicada</li>
+          <li><i class="fas fa-check"></i> Pós-Graduação em Nutrição Esportiva</li>
+          <li><i class="fas fa-check"></i> Registro Profissional CREF 066381</li>
+          <li><i class="fas fa-check"></i> Presencial, semi-presencial e online</li>
+        </ul>
+        <div class="about-cta">
+          <button class="btn btn--gold" onclick="openWA()">
+            <span>Falar com Gabriel &nbsp;<i class="fab fa-whatsapp"></i></span>
+          </button>
         </div>
       </div>
-    </section>
 
-    <!-- ====== SERVIÇOS ====== -->
-    <section class="section-pad" id="servicos">
-      <div class="container">
-        <div class="reveal">
-          <div class="eyebrow">O que Ofereço</div>
-          <h2 class="section-h">Serviços</h2>
-          <p class="section-sub">Cada modalidade foi desenhada para um perfil de aluno. Escolha o que melhor encaixa na sua rotina e objetivo.</p>
-        </div>
-        <div class="svc-grid">
-          <div class="svc-card top reveal d1">
-            <div class="pop-tag">Mais Procurado</div>
-            <div class="svc-num">01</div>
-            <div class="svc-ico"><i class="fas fa-bullseye"></i></div>
-            <h3 class="svc-title">Personal Training</h3>
-            <p class="svc-desc">Acompanhamento 100% presencial e individual. Máxima atenção, correção em tempo real e treino ajustado toda semana com base na sua evolução.</p>
-            <ul class="svc-list">
-              <li><i class="fas fa-chevron-right"></i> Avaliação física completa</li>
-              <li><i class="fas fa-chevron-right"></i> Periodização científica</li>
-              <li><i class="fas fa-chevron-right"></i> Correção postural contínua</li>
-              <li><i class="fas fa-chevron-right"></i> Plano nutricional integrado</li>
-              <li><i class="fas fa-chevron-right"></i> Suporte 24/7 via WhatsApp</li>
-            </ul>
-          </div>
-          <div class="svc-card reveal d2">
-            <div class="svc-num">02</div>
-            <div class="svc-ico"><i class="fas fa-laptop"></i></div>
-            <h3 class="svc-title">Consultoria Online</h3>
-            <p class="svc-desc">Para quem não pode treinar presencialmente mas quer resultado real. Treino montado para você, com revisão semanal e suporte diário.</p>
-            <ul class="svc-list">
-              <li><i class="fas fa-chevron-right"></i> Treino personalizado via WhatsApp</li>
-              <li><i class="fas fa-chevron-right"></i> Revisão semanal do plano</li>
-              <li><i class="fas fa-chevron-right"></i> Orientação nutricional básica</li>
-              <li><i class="fas fa-chevron-right"></i> Flexibilidade total de horário</li>
-            </ul>
-          </div>
-          <div class="svc-card reveal d3">
-            <div class="svc-num">03</div>
-            <div class="svc-ico"><i class="fas fa-users"></i></div>
-            <h3 class="svc-title">Treino em Grupo</h3>
-            <p class="svc-desc">Sessões em grupos de até 3 pessoas — equilíbrio perfeito entre atenção individualizada, motivação coletiva e custo acessível.</p>
-            <ul class="svc-list">
-              <li><i class="fas fa-chevron-right"></i> Máximo 3 pessoas por sessão</li>
-              <li><i class="fas fa-chevron-right"></i> Treino adaptado ao grupo</li>
-              <li><i class="fas fa-chevron-right"></i> Motivação e dinâmica extras</li>
-              <li><i class="fas fa-chevron-right"></i> Melhor custo-benefício</li>
-            </ul>
-          </div>
-        </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ RESULTADOS ══════════════ -->
+<section class="section section--alt" id="resultados" aria-labelledby="resultados-h">
+  <div class="wrap">
+    <div class="results-head">
+      <div class="rev">
+        <div class="eyebrow">Transformações Reais</div>
+        <h2 class="section-h" id="resultados-h">Resultados que<br>Falam por Si</h2>
       </div>
-    </section>
+      <p class="section-p rev" style="max-width:280px">Alunos reais, resultados verificáveis. Corpo transformado, saúde recuperada, autoestima elevada.</p>
+    </div>
 
-    <!-- ====== DIFERENCIAIS ====== -->
-    <section class="section-pad section-alt" id="diferenciais">
-      <div class="container">
-        <div class="diff-grid">
+    <div class="results-grid">
+      <div class="result-card rev d1">
+        <img src="img/marcos.jpg" alt="Marcos — +8kg de massa muscular" loading="lazy" />
+        <div class="result-card-over">
           <div>
-            <div class="reveal">
-              <div class="eyebrow">Por que Escolher Gabriel</div>
-              <h2 class="section-h">A Diferença<br>Está no Método</h2>
-              <div class="gold-rule"></div>
-            </div>
-            <div class="diff-list reveal d1">
-              <div class="diff-item">
-                <div class="diff-n">01</div>
-                <div class="diff-body">
-                  <strong>Avaliação Física Real, Não Estimada</strong>
-                  <p>Cada programa começa com análise de biometria, postura, mobilidade e histórico — sem achismo.</p>
-                </div>
-              </div>
-              <div class="diff-item">
-                <div class="diff-n">02</div>
-                <div class="diff-body">
-                  <strong>Ciência Aplicada ao Treino</strong>
-                  <p>Periodização baseada em evidências, fisiologia do exercício e biomecânica. Treino eficiente, seguro e progressivo.</p>
-                </div>
-              </div>
-              <div class="diff-item">
-                <div class="diff-n">03</div>
-                <div class="diff-body">
-                  <strong>Visão Integrada: Treino + Nutrição</strong>
-                  <p>Pós-graduado em Nutrição Esportiva, Gabriel une treino e alimentação para maximizar o resultado.</p>
-                </div>
-              </div>
-              <div class="diff-item">
-                <div class="diff-n">04</div>
-                <div class="diff-body">
-                  <strong>Acompanhamento Contínuo</strong>
-                  <p>Suporte via WhatsApp, ajustes semanais, relatórios de evolução. Você nunca está sozinho no processo.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="diff-photo rr">
-            <img src="img/gabriel2.jpg" alt="Metodologia Gabriel Venancio" />
-            <div class="diff-quote">
-              <p>"Resultado não é acidente. É método, consistência e a pessoa certa ao seu lado."</p>
-              <cite>— Prof. Gabriel Venancio</cite>
-            </div>
+            <strong>Marcos</strong>
+            <span>+8kg de massa muscular</span>
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- ====== DEPOIMENTOS ====== -->
-    <section class="section-pad" id="depoimentos">
-      <div class="container">
-        <div class="reveal" style="text-align:center;max-width:540px;margin:0 auto">
-          <div class="eyebrow" style="justify-content:center">Depoimentos</div>
-          <h2 class="section-h">O Que Dizem<br>Meus Alunos</h2>
-          <p class="section-sub" style="margin:14px auto 0">Resultados reais de pessoas reais. Veja quem já passou pela transformação.</p>
-        </div>
-        <div class="testi-grid">
-          <div class="testi-card hi reveal d1">
-            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-            <p class="testi-text">Treino há 5 meses com o Gabriel e os resultados são incríveis. Finalmente consegui o corpo que sempre quis!</p>
-            <div class="testi-author">
-              <div class="t-avatar"><img src="img/marcos.jpg" alt="Marcos"/></div>
-              <div><div class="t-name">Marcos</div><div class="t-result">+8kg de massa muscular</div></div>
-            </div>
-          </div>
-          <div class="testi-card reveal d2">
-            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-            <p class="testi-text">Profissional incrível! Me ajudou a superar minhas limitações. Hoje me sinto muito mais disposto e saudável.</p>
-            <div class="testi-author">
-              <div class="t-avatar"><img src="img/fernando.jpg" alt="Fernando"/></div>
-              <div><div class="t-name">Fernando Santos, 27</div><div class="t-result">Definição + massa muscular</div></div>
-            </div>
-          </div>
-          <div class="testi-card reveal d3">
-            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-            <p class="testi-text">O acompanhamento online superou minhas expectativas. Treino 100% personalizado, revisado toda semana. Vale muito!</p>
-            <div class="testi-author">
-              <div class="t-avatar" style="display:grid;place-items:center"><i class="fas fa-user" style="color:var(--gold-dk);font-size:.95rem"></i></div>
-              <div><div class="t-name">Aluno Online</div><div class="t-result">Perda de gordura + condicionamento</div></div>
-            </div>
+      <div class="result-card rev d2">
+        <img src="img/fernando.jpg" alt="Fernando Santos — Definição e massa" loading="lazy" />
+        <div class="result-card-over">
+          <div>
+            <strong>Fernando Santos, 27</strong>
+            <span>Definição + massa muscular</span>
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- ====== PLANOS ====== -->
-    <section class="section-pad section-alt" id="planos">
-      <div class="container">
-        <div class="reveal" style="text-align:center;max-width:520px;margin:0 auto">
-          <div class="eyebrow" style="justify-content:center">Investimento</div>
-          <h2 class="section-h">Escolha Seu Plano</h2>
-          <p class="section-sub" style="margin:14px auto 0">Consulte o valor e descubra qual modalidade encaixa melhor no seu objetivo e rotina.</p>
+      <div class="result-card rev d3">
+        <div class="result-ph">
+          <i class="fas fa-user-check" aria-hidden="true"></i>
+          <span>Sua transformação aqui</span>
         </div>
-        <div class="plans-grid">
-          <div class="plan-card reveal d1">
-            <div class="plan-lbl">Para quem quer flexibilidade</div>
-            <div class="plan-name">Online</div>
-            <div class="plan-tag">Consultoria remota completa</div>
-            <div class="plan-price"><i class="fab fa-whatsapp"></i>&nbsp; Consulte o valor</div>
-            <ul class="plan-feats">
-              <li><i class="fas fa-check"></i> Treino personalizado via WhatsApp</li>
-              <li><i class="fas fa-check"></i> Suporte diário</li>
-              <li><i class="fas fa-check"></i> Revisão semanal do plano</li>
-              <li><i class="fas fa-check"></i> Orientação nutricional básica</li>
-              <li><i class="fas fa-check"></i> Atendimento em qualquer cidade</li>
-            </ul>
-            <button class="btn-ghost plan-btn" onclick="openWA()">Saber Mais</button>
+        <div class="result-card-over">
+          <div>
+            <strong>O próximo pode ser você</strong>
+            <span>Agende sua avaliação gratuita</span>
           </div>
-          <div class="plan-card hi reveal d2">
-            <div class="plan-lbl">Resultado máximo</div>
-            <div class="plan-name">Personal</div>
-            <div class="plan-tag">Acompanhamento presencial individual</div>
-            <div class="plan-price"><i class="fab fa-whatsapp"></i>&nbsp; Consulte o valor</div>
-            <ul class="plan-feats">
-              <li><i class="fas fa-check"></i> Treino 100% individualizado</li>
-              <li><i class="fas fa-check"></i> Presença e correção em tempo real</li>
-              <li><i class="fas fa-check"></i> Avaliação física mensal</li>
-              <li><i class="fas fa-check"></i> Plano nutricional integrado</li>
-              <li><i class="fas fa-check"></i> Suporte 24/7</li>
-              <li><i class="fas fa-check"></i> Relatório de evolução</li>
-            </ul>
-            <button class="btn-gold plan-btn" onclick="openWA()"><span>Agendar Consulta</span></button>
-          </div>
-          <div class="plan-card reveal d3">
-            <div class="plan-lbl">Melhor custo-benefício</div>
-            <div class="plan-name">Grupo</div>
-            <div class="plan-tag">Até 3 pessoas por sessão</div>
-            <div class="plan-price"><i class="fab fa-whatsapp"></i>&nbsp; Consulte o valor</div>
-            <ul class="plan-feats">
-              <li><i class="fas fa-check"></i> Grupos de no máximo 3 pessoas</li>
-              <li><i class="fas fa-check"></i> Treino adaptado ao grupo</li>
-              <li><i class="fas fa-check"></i> Atenção individualizada mantida</li>
-              <li><i class="fas fa-check"></i> Motivação coletiva</li>
-              <li><i class="fas fa-check"></i> Preço mais acessível</li>
-            </ul>
-            <button class="btn-ghost plan-btn" onclick="openWA()">Formar Grupo</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====== CTA BAND ====== -->
-    <div class="cta-band">
-      <div class="container reveal">
-        <div class="eyebrow" style="justify-content:center">Primeira consulta gratuita</div>
-        <h2 class="section-h">Pronto para<br>Começar de Verdade?</h2>
-        <p>Agende agora sua avaliação gratuita. Sem compromisso — apenas uma conversa honesta sobre seus objetivos e como chegar lá.</p>
-        <div class="cta-row">
-          <button class="btn-gold" onclick="openWA()"><span><i class="fab fa-whatsapp"></i>&nbsp; Falar no WhatsApp</span></button>
-          <a href="#planos" class="btn-ghost">Ver Planos</a>
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- ====== CONTATO ====== -->
-    <section class="section-pad" id="contato">
-      <div class="container">
-        <div class="contact-grid">
-          <div class="rl">
-            <div class="eyebrow">Entre em Contato</div>
-            <div class="contact-lbl">Vamos Conversar<br>Sobre Seus Objetivos</div>
-            <p class="contact-sub">Atendo presencialmente no Rio de Janeiro, semi-presencial e 100% online para todo o Brasil. Entre em contato pelo canal de sua preferência.</p>
-            <div class="contact-list">
-              <div class="c-item" onclick="openWA()">
-                <div class="c-ico"><i class="fab fa-whatsapp"></i></div>
-                <div class="c-txt"><strong>(21) 97691-3725</strong><span>WhatsApp — clique para conversar</span></div>
-              </div>
-              <div class="c-item" onclick="openEmail()">
-                <div class="c-ico"><i class="fas fa-envelope"></i></div>
-                <div class="c-txt"><strong>gabrielvenancio@email.com</strong><span>Email — resposta em até 24h</span></div>
-              </div>
-              <div class="c-item">
-                <div class="c-ico"><i class="fas fa-map-marker-alt"></i></div>
-                <div class="c-txt"><strong>Rio de Janeiro, RJ</strong><span>Presencial · Semi-presencial · Online</span></div>
-              </div>
-              <div class="c-item">
-                <div class="c-ico"><i class="fas fa-clock"></i></div>
-                <div class="c-txt"><strong>Seg–Sex: 6h–22h &nbsp;·&nbsp; Sáb: 8h–19h &nbsp;·&nbsp; Dom: 8h–14h</strong><span>Horário de atendimento</span></div>
-              </div>
-            </div>
-            <div class="social-row">
-              <a href="https://instagram.com/venanciogabriel._" class="soc-link" target="_blank"><i class="fab fa-instagram"></i> @venanciogabriel._</a>
-              <a href="#" class="soc-link" target="_blank"><i class="fab fa-facebook"></i> Gabriel Venancio</a>
-            </div>
-          </div>
-          <div class="cta-card rr">
-            <i class="fas fa-dumbbell"></i>
-            <h4>Avaliação<br>Gratuita</h4>
-            <p>Na primeira consulta, analisamos seu histórico, objetivos e condicionamento atual — sem custo. Você sai com clareza total sobre o que precisa fazer.</p>
-            <button class="btn-gold" onclick="openWA()"><span><i class="fab fa-whatsapp"></i>&nbsp; Agendar Agora</span></button>
-            <div class="cta-note"><i class="fas fa-gift"></i> 100% gratuita, sem compromisso</div>
-          </div>
-        </div>
+<!-- ══════════════ SERVIÇOS ══════════════ -->
+<section class="section" id="servicos" aria-labelledby="servicos-h">
+  <div class="wrap">
+    <div class="services-lede">
+      <div class="rev">
+        <div class="eyebrow">O que Ofereço</div>
+        <h2 class="section-h" id="servicos-h">Serviços</h2>
       </div>
-    </section>
+      <p class="section-p rev">Cada modalidade foi pensada para um perfil de aluno. Escolha o que encaixa na sua rotina e objetivo.</p>
+    </div>
 
-  </main>
+    <div class="services-grid">
+      <div class="svc-card svc-featured rev d1">
+        <div class="svc-badge">Mais Procurado</div>
+        <div class="svc-num">01</div>
+        <div class="svc-ico"><i class="fas fa-bullseye" aria-hidden="true"></i></div>
+        <h3 class="svc-title">Personal Training</h3>
+        <p class="svc-desc">Acompanhamento 100% presencial e individual. Máxima atenção, correção em tempo real, treino ajustado toda semana.</p>
+        <ul class="svc-feats">
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Avaliação física completa</li>
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Periodização científica</li>
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Correção postural contínua</li>
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Plano nutricional integrado</li>
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Suporte 24/7 via WhatsApp</li>
+        </ul>
+      </div>
 
-  <footer>
-    <div class="container">
-      <div class="foot-inner">
-        <div class="foot-brand">GABRIEL <span>VENANCIO</span> · Personal Trainer</div>
-        <div class="foot-links">
-          <a href="#">Política de Privacidade</a>
-          <a href="#">Termos de Uso</a>
-        </div>
-        <div class="foot-copy">© 2025 · Dev. por Guilherme dos Santos</div>
+      <div class="svc-card rev d2">
+        <div class="svc-num">02</div>
+        <div class="svc-ico"><i class="fas fa-laptop" aria-hidden="true"></i></div>
+        <h3 class="svc-title">Consultoria Online</h3>
+        <p class="svc-desc">Para quem não pode treinar presencialmente mas quer resultado real. Treino montado para você, com revisão semanal.</p>
+        <ul class="svc-feats">
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Treino personalizado via WhatsApp</li>
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Revisão semanal do plano</li>
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Orientação nutricional básica</li>
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Flexibilidade total de horário</li>
+        </ul>
+      </div>
+
+      <div class="svc-card rev d3">
+        <div class="svc-num">03</div>
+        <div class="svc-ico"><i class="fas fa-users" aria-hidden="true"></i></div>
+        <h3 class="svc-title">Treino em Grupo</h3>
+        <p class="svc-desc">Sessões em grupos de até 3 pessoas. Equilíbrio perfeito entre atenção individual, motivação coletiva e custo acessível.</p>
+        <ul class="svc-feats">
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Máximo 3 pessoas por sessão</li>
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Treino adaptado ao grupo</li>
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Dinâmica e motivação extras</li>
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Melhor custo-benefício</li>
+        </ul>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <button id="back-top" onclick="goTop()"><i class="fas fa-chevron-up"></i></button>
-  <script>
-  (function () {
-    'use strict';
+<!-- ══════════════ DIFERENCIAIS ══════════════ -->
+<section class="section section--alt" id="diferenciais" aria-labelledby="diff-h">
+  <div class="wrap">
+    <div class="diff-grid">
 
-    /* ── LOADER ─────────────────────────────────────────── */
-    window.addEventListener('load', function () {
-      setTimeout(function () {
-        var el = document.getElementById('loader');
-        if (el) el.classList.add('hidden');
-      }, 1700);
+      <div>
+        <div class="rev">
+          <div class="eyebrow">Por Que Escolher Gabriel</div>
+          <h2 class="section-h" id="diff-h">A Diferença<br>Está no Método</h2>
+          <div class="gold-bar"></div>
+        </div>
+        <div class="diff-list rev d1">
+          <div class="diff-item">
+            <div class="diff-num">01</div>
+            <div class="diff-body">
+              <strong>Avaliação Física Real, Não Estimada</strong>
+              <p>Cada programa começa com análise de biometria, postura, mobilidade e histórico — sem achismo.</p>
+            </div>
+          </div>
+          <div class="diff-item">
+            <div class="diff-num">02</div>
+            <div class="diff-body">
+              <strong>Ciência Aplicada ao Treino</strong>
+              <p>Periodização baseada em evidências, fisiologia do exercício e biomecânica. Treino eficiente, seguro e progressivo.</p>
+            </div>
+          </div>
+          <div class="diff-item">
+            <div class="diff-num">03</div>
+            <div class="diff-body">
+              <strong>Visão Integrada: Treino + Nutrição</strong>
+              <p>Pós-graduado em Nutrição Esportiva, une treino e alimentação para maximizar o resultado.</p>
+            </div>
+          </div>
+          <div class="diff-item">
+            <div class="diff-num">04</div>
+            <div class="diff-body">
+              <strong>Acompanhamento Contínuo</strong>
+              <p>Suporte via WhatsApp, ajustes semanais, relatórios de evolução. Você nunca está sozinho no processo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="diff-photo-col rev-r">
+        <img src="img/gabriel2.jpg" alt="Metodologia Gabriel Venancio" loading="lazy" />
+        <div class="diff-quote">
+          <p>"Resultado não é acidente. É método, consistência e a pessoa certa ao seu lado."</p>
+          <cite>— Prof. Gabriel Venancio</cite>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ DEPOIMENTOS ══════════════ -->
+<section class="section" id="depoimentos" aria-labelledby="dep-h">
+  <div class="wrap">
+    <div class="testi-header rev">
+      <div class="eyebrow" style="justify-content:center">Depoimentos</div>
+      <h2 class="section-h" id="dep-h">O Que Dizem<br>Meus Alunos</h2>
+      <p class="section-p">Resultados reais de pessoas reais. Veja quem já passou pela transformação.</p>
+    </div>
+
+    <div class="testi-grid">
+      <div class="testi-card testi-hi rev d1">
+        <div class="testi-stars" aria-label="5 estrelas">
+          <i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i>
+          <i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i>
+          <i class="fas fa-star" aria-hidden="true"></i>
+        </div>
+        <p class="testi-text">Treino há 5 meses com o Gabriel e os resultados são incríveis. Finalmente consegui o corpo que sempre quis!</p>
+        <div class="testi-author">
+          <div class="testi-avatar">
+            <img src="img/marcos.jpg" alt="Marcos" loading="lazy" />
+          </div>
+          <div>
+            <div class="testi-name">Marcos</div>
+            <div class="testi-result">+8kg de massa muscular</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card rev d2">
+        <div class="testi-stars" aria-label="5 estrelas">
+          <i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i>
+          <i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i>
+          <i class="fas fa-star" aria-hidden="true"></i>
+        </div>
+        <p class="testi-text">Profissional incrível! Me ajudou a superar minhas limitações. Hoje me sinto muito mais disposto e saudável.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">
+            <img src="img/fernando.jpg" alt="Fernando Santos" loading="lazy" />
+          </div>
+          <div>
+            <div class="testi-name">Fernando Santos, 27</div>
+            <div class="testi-result">Definição + massa muscular</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card rev d3">
+        <div class="testi-stars" aria-label="5 estrelas">
+          <i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i>
+          <i class="fas fa-star" aria-hidden="true"></i><i class="fas fa-star" aria-hidden="true"></i>
+          <i class="fas fa-star" aria-hidden="true"></i>
+        </div>
+        <p class="testi-text">O acompanhamento online superou minhas expectativas. Treino 100% personalizado, revisado toda semana. Vale muito!</p>
+        <div class="testi-author">
+          <div class="testi-avatar" aria-hidden="true"><i class="fas fa-user"></i></div>
+          <div>
+            <div class="testi-name">Aluno Online</div>
+            <div class="testi-result">Perda de gordura + condicionamento</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ PLANOS ══════════════ -->
+<section class="section section--alt" id="planos" aria-labelledby="plans-h">
+  <div class="wrap">
+    <div class="plans-header rev">
+      <div class="eyebrow" style="justify-content:center">Investimento</div>
+      <h2 class="section-h" id="plans-h">Escolha Seu Plano</h2>
+      <p class="section-p">Consulte o valor e descubra qual modalidade encaixa melhor no seu objetivo e rotina.</p>
+    </div>
+
+    <div class="plans-grid">
+      <div class="plan-card rev d1">
+        <div class="plan-badge-wrap">Para quem quer flexibilidade</div>
+        <div class="plan-name">Online</div>
+        <div class="plan-tagline">Consultoria remota completa</div>
+        <div class="plan-price"><i class="fab fa-whatsapp" aria-hidden="true"></i>&nbsp; Consulte o valor</div>
+        <ul class="plan-feats">
+          <li><i class="fas fa-check" aria-hidden="true"></i> Treino personalizado via WhatsApp</li>
+          <li><i class="fas fa-check" aria-hidden="true"></i> Suporte diário</li>
+          <li><i class="fas fa-check" aria-hidden="true"></i> Revisão semanal do plano</li>
+          <li><i class="fas fa-check" aria-hidden="true"></i> Orientação nutricional básica</li>
+          <li><i class="fas fa-check" aria-hidden="true"></i> Atendimento em qualquer cidade</li>
+        </ul>
+        <button class="btn btn--ghost btn--full" onclick="openWA()">Saber Mais</button>
+      </div>
+
+      <div class="plan-card plan-hi rev d2">
+        <div class="plan-badge-wrap">Resultado máximo</div>
+        <div class="plan-name">Personal</div>
+        <div class="plan-tagline">Acompanhamento presencial individual</div>
+        <div class="plan-price"><i class="fab fa-whatsapp" aria-hidden="true"></i>&nbsp; Consulte o valor</div>
+        <ul class="plan-feats">
+          <li><i class="fas fa-check" aria-hidden="true"></i> Treino 100% individualizado</li>
+          <li><i class="fas fa-check" aria-hidden="true"></i> Presença e correção em tempo real</li>
+          <li><i class="fas fa-check" aria-hidden="true"></i> Avaliação física mensal</li>
+          <li><i class="fas fa-check" aria-hidden="true"></i> Plano nutricional integrado</li>
+          <li><i class="fas fa-check" aria-hidden="true"></i> Suporte 24/7</li>
+          <li><i class="fas fa-check" aria-hidden="true"></i> Relatório de evolução</li>
+        </ul>
+        <button class="btn btn--gold btn--full" onclick="openWA()"><span>Agendar Consulta</span></button>
+      </div>
+
+      <div class="plan-card rev d3">
+        <div class="plan-badge-wrap">Melhor custo-benefício</div>
+        <div class="plan-name">Grupo</div>
+        <div class="plan-tagline">Até 3 pessoas por sessão</div>
+        <div class="plan-price"><i class="fab fa-whatsapp" aria-hidden="true"></i>&nbsp; Consulte o valor</div>
+        <ul class="plan-feats">
+          <li><i class="fas fa-check" aria-hidden="true"></i> Grupos de no máximo 3 pessoas</li>
+          <li><i class="fas fa-check" aria-hidden="true"></i> Treino adaptado ao grupo</li>
+          <li><i class="fas fa-check" aria-hidden="true"></i> Atenção individualizada mantida</li>
+          <li><i class="fas fa-check" aria-hidden="true"></i> Motivação coletiva</li>
+          <li><i class="fas fa-check" aria-hidden="true"></i> Preço mais acessível</li>
+        </ul>
+        <button class="btn btn--ghost btn--full" onclick="openWA()">Formar Grupo</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CTA BAND ══════════════ -->
+<div class="cta-band" aria-label="Chamada para ação">
+  <div class="wrap rev">
+    <div class="eyebrow" style="justify-content:center">Primeira consulta gratuita</div>
+    <h2 class="section-h">Pronto para<br>Começar de Verdade?</h2>
+    <p class="section-p">Agende agora sua avaliação gratuita. Sem compromisso — uma conversa honesta sobre seus objetivos e o caminho para chegar lá.</p>
+    <div class="cta-band-actions">
+      <button class="btn btn--gold" onclick="openWA()">
+        <span><i class="fab fa-whatsapp"></i>&nbsp; Falar no WhatsApp</span>
+      </button>
+      <a href="#planos" class="btn btn--ghost">Ver Planos</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ CONTATO ══════════════ -->
+<section class="section" id="contato" aria-labelledby="contact-h">
+  <div class="wrap">
+    <div class="contact-grid">
+
+      <div class="contact-lede rev-l">
+        <div class="eyebrow">Entre em Contato</div>
+        <h2 class="section-h" id="contact-h">Vamos Conversar<br>Sobre Seus Objetivos</h2>
+        <div class="gold-bar"></div>
+        <p>Atendo presencialmente no Rio de Janeiro, semi-presencial e 100% online para todo o Brasil.</p>
+
+        <div class="contact-items">
+          <div class="c-item" onclick="openWA()" role="button" tabindex="0" aria-label="Contato via WhatsApp">
+            <div class="c-item-ico"><i class="fab fa-whatsapp" aria-hidden="true"></i></div>
+            <div class="c-item-txt">
+              <strong>(21) 97691-3725</strong>
+              <span>WhatsApp — clique para conversar</span>
+            </div>
+          </div>
+          <div class="c-item" onclick="openEmail()" role="button" tabindex="0" aria-label="Enviar email">
+            <div class="c-item-ico"><i class="fas fa-envelope" aria-hidden="true"></i></div>
+            <div class="c-item-txt">
+              <strong>gvenancio13pg@gmail.com</strong>
+              <span>Email — resposta em até 24h</span>
+            </div>
+          </div>
+          <div class="c-item">
+            <div class="c-item-ico"><i class="fas fa-map-marker-alt" aria-hidden="true"></i></div>
+            <div class="c-item-txt">
+              <strong>Rio de Janeiro, RJ</strong>
+              <span>Presencial · Semi-presencial · Online</span>
+            </div>
+          </div>
+          <div class="c-item">
+            <div class="c-item-ico"><i class="fas fa-clock" aria-hidden="true"></i></div>
+            <div class="c-item-txt">
+              <strong>Seg–Sex: 6h–22h &nbsp;·&nbsp; Sáb: 8h–19h &nbsp;·&nbsp; Dom: 8h–14h</strong>
+              <span>Horário de atendimento</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="social-row">
+          <a href="https://instagram.com/venanciogabriel._" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">
+            <i class="fab fa-instagram" aria-hidden="true"></i> @venanciogabriel._
+          </a>
+          <a href="#" class="social-link" aria-label="Facebook">
+            <i class="fab fa-facebook" aria-hidden="true"></i> Gabriel Venancio
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-card rev-r">
+        <div class="contact-card-icon" aria-hidden="true"><i class="fas fa-dumbbell"></i></div>
+        <h3>Avaliação<br>Gratuita</h3>
+        <p>Na primeira consulta, analisamos seu histórico, objetivos e condicionamento atual — sem custo. Você sai com clareza total sobre o que precisa fazer.</p>
+        <button class="btn btn--gold" onclick="openWA()">
+          <span><i class="fab fa-whatsapp"></i>&nbsp; Agendar Agora</span>
+        </button>
+        <div class="contact-card-note">
+          <i class="fas fa-gift" aria-hidden="true"></i>
+          <span>100% gratuita, sem compromisso</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">GABRIEL <em>VENANCIO</em> · Personal Trainer</div>
+      <div class="footer-links">
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Termos de Uso</a>
+      </div>
+      <div class="footer-copy">© 2025 · Dev. Guilherme dos Santos</div>
+    </div>
+  </div>
+</footer>
+
+<button id="back-top" onclick="scrollTop()" aria-label="Voltar ao topo">
+  <i class="fas fa-chevron-up" aria-hidden="true"></i>
+</button>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── LOADER ─────────────────────────────────────── */
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      var el = document.getElementById('loader');
+      if (el) el.classList.add('out');
+    }, 1600);
+  });
+
+  /* ── HEADER STICK + BACK-TOP ─────────────────────── */
+  var header  = document.getElementById('header');
+  var backTop = document.getElementById('back-top');
+  window.addEventListener('scroll', function () {
+    var y = window.scrollY;
+    if (header)  header.classList.toggle('stuck', y > 60);
+    if (backTop) backTop.classList.toggle('show',  y > 400);
+    highlightNav(y);
+  }, { passive: true });
+
+  /* ── SCROLL-SPY NAV ─────────────────────────────── */
+  var navAs   = document.querySelectorAll('.nav-links a');
+  var sections = Array.prototype.slice.call(document.querySelectorAll('section[id]'));
+  function highlightNav(y) {
+    var mid = y + window.innerHeight * 0.45;
+    var cur = '';
+    sections.forEach(function (s) { if (s.offsetTop <= mid) cur = s.id; });
+    navAs.forEach(function (a) {
+      var active = a.getAttribute('href') === '#' + cur;
+      a.classList.toggle('active', active);
     });
+  }
 
-    /* ── HEADER SCROLL + BACK-TO-TOP ────────────────────── */
-    window.addEventListener('scroll', function () {
-      var s = window.scrollY;
-      var hdr = document.getElementById('hdr');
-      var bt  = document.getElementById('back-top');
-      if (hdr) hdr.classList.toggle('scrolled', s > 80);
-      if (bt)  bt.classList.toggle('show',      s > 400);
-    }, { passive: true });
+  /* ── MOBILE DRAWER ──────────────────────────────── */
+  var ham    = document.getElementById('hamburger');
+  var drawer = document.getElementById('drawer');
+  function openDrawer() {
+    drawer.classList.add('open');
+    ham.classList.add('open');
+    ham.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  window.closeDrawer = function () {
+    drawer.classList.remove('open');
+    ham.classList.remove('open');
+    ham.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  };
+  if (ham) ham.addEventListener('click', function () {
+    drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+  });
+  // close on backdrop click
+  drawer.addEventListener('click', function (e) {
+    if (e.target === drawer) closeDrawer();
+  });
 
-    /* ── MOBILE MENU ────────────────────────────────────── */
-    function openMob() {
-      var nav = document.getElementById('mob-nav');
-      if (nav) nav.classList.add('open');
-    }
-    function closeMob() {
-      var nav = document.getElementById('mob-nav');
-      if (nav) nav.classList.remove('open');
-    }
-    // Expose closeMob for inline onclick on <a> links
-    window.closeMob = closeMob;
-
-    var hambtn   = document.getElementById('hambtn');
-    var mobClose = document.getElementById('mob-close');
-    if (hambtn)   hambtn.addEventListener('click',   openMob);
-    if (mobClose) mobClose.addEventListener('click', closeMob);
-
-    document.querySelectorAll('.mobile-nav a').forEach(function (a) {
-      a.addEventListener('click', closeMob);
+  /* ── SCROLL REVEAL ──────────────────────────────── */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.rev, .rev-l, .rev-r').forEach(function (el) {
+      io.observe(el);
     });
+  } else {
+    document.querySelectorAll('.rev, .rev-l, .rev-r').forEach(function (el) {
+      el.classList.add('in');
+    });
+  }
 
-    /* ── SCROLL REVEAL ──────────────────────────────────── */
-    if ('IntersectionObserver' in window) {
-      var revealObs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in');
-            revealObs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
+  /* ── BACK TO TOP ────────────────────────────────── */
+  window.scrollTop = function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
-      document.querySelectorAll('.reveal, .rl, .rr').forEach(function (el) {
-        revealObs.observe(el);
-      });
-    } else {
-      // Fallback for old browsers: show everything immediately
-      document.querySelectorAll('.reveal, .rl, .rr').forEach(function (el) {
-        el.classList.add('in');
-      });
-    }
-
-    /* ── BACK TO TOP ────────────────────────────────────── */
-    window.goTop = function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    /* ── WHATSAPP / EMAIL ───────────────────────────────── */
-    window.openWA = function () {
-      var msg = encodeURIComponent(
-        'Olá, Gabriel! Vi seu site e gostaria de agendar uma avaliação gratuita.'
-      );
-      window.open('https://wa.me/5521976913725?text=' + msg, '_blank');
-    };
-
-    window.openEmail = function () {
-      window.location.href =
-        'mailto:gabrielvenancio@email.com?subject=Contato%20via%20Site';
-    };
-
-    /* ── ACTIVE NAV HIGHLIGHT ───────────────────────────── */
-    var allSections = Array.prototype.slice.call(
-      document.querySelectorAll('section[id]')
+  /* ── CONTACT ACTIONS ────────────────────────────── */
+  window.openWA = function () {
+    var msg = encodeURIComponent(
+      'Ol\u00e1, Gabriel! Vi seu site e gostaria de agendar uma avalia\u00e7\u00e3o gratuita.'
     );
-    var navLinks = document.querySelectorAll('.nav-links a');
+    window.open('https://wa.me/5521976913725?text=' + msg, '_blank', 'noopener');
+  };
+  window.openEmail = function () {
+    window.location.href = 'mailto:gabrielvenancio@email.com?subject=Contato%20via%20Site';
+  };
 
-    window.addEventListener('scroll', function () {
-      var mid = window.scrollY + window.innerHeight / 2;
-      var current = '';
-      allSections.forEach(function (sec) {
-        if (sec.offsetTop <= mid) { current = sec.id; }
-      });
-      navLinks.forEach(function (a) {
-        a.style.color =
-          a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
-      });
-    }, { passive: true });
-
-    /* ── IMAGE FALLBACK (graceful degradation if photos are replaced later) ── */
-    document.querySelectorAll('img').forEach(function (img) {
-      img.addEventListener('error', function () {
-        img.style.opacity = '0.3';
-        img.style.filter  = 'grayscale(1)';
-      });
+  /* ── KEYBOARD: contact items ────────────────────── */
+  document.querySelectorAll('.c-item[role="button"]').forEach(function (el) {
+    el.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
     });
+  });
 
-  }()); // end IIFE
-  </script>
+  /* ── IMAGE ERROR HANDLER ────────────────────────── */
+  document.querySelectorAll('img').forEach(function (img) {
+    img.addEventListener('error', function () {
+      img.style.opacity = '0.2';
+      img.style.filter  = 'grayscale(1)';
+    });
+  });
+
+}());
+</script>
 </body>
 </html>
